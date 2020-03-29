@@ -2,6 +2,10 @@
 kind: pipeline
 name: default
 
+trigger:
+  branch:
+  - master
+
 steps:
 - name: Deploy container
   image: docker/compose
