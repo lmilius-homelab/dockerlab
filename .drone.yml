@@ -2,7 +2,9 @@ kind: pipeline
 name: default
 
 steps:
-- name: test
-  image: python
+- name: Deploy container
+  image: docker/compose
   commands:
-  - pip install --upgrade boto3
+  - docker-compose up -d
+  volume:
+  - /var/run/docker.sock:/var/run/docker.sock
