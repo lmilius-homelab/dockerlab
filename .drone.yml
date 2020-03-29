@@ -1,8 +1,24 @@
+---
 kind: pipeline
 name: default
 
+trigger:
+  branch:
+  - master
+  event:
+  - push
+
 steps:
-- name: test
-  image: python
+- name: Deploy container
+  image: docker/compose
   commands:
-  - pip install --upgrade boto3
+  - docker ps -a
+  - docker-compose up -d
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+    
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
