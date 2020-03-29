@@ -3,4 +3,4 @@ services:
   whoami:
     image: jwilder/whoami
     ports:
-    - 8081:8080
+    - 8000
