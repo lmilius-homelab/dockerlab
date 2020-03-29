@@ -5,4 +5,4 @@ steps:
 - name: test
   image: python
   commands:
-  - pip install boto3
+  - pip install --upgrade boto3
