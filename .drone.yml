@@ -1,5 +1,5 @@
 kind: pipeline
-name: exec
+name: docker
 
 steps:
 - name: Deploy container
