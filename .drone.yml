@@ -1,10 +1,10 @@
 kind: pipeline
-name: default
+name: exec
 
 steps:
 - name: Deploy container
   image: docker/compose
   commands:
-  - docker-compose -H tcp://10.10.200.99:2375 up -d
+  - docker-compose up -d
   volume:
   - /var/run/docker.sock:/var/run/docker.sock
