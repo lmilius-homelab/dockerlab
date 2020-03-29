@@ -1,10 +1,18 @@
+---
 kind: pipeline
-name: docker
+name: default
 
 steps:
 - name: Deploy container
   image: docker/compose
   commands:
+  - docker ps -a
   - docker-compose up -d
-  volume:
-  - /var/run/docker.sock:/var/run/docker.sock
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+    
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
