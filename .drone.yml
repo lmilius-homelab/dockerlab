@@ -5,6 +5,8 @@ name: default
 trigger:
   branch:
   - master
+  event:
+  - push
 
 steps:
 - name: Deploy container
