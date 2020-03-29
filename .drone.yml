@@ -1,6 +1,6 @@
----
 kind: pipeline
 name: default
+type: docker
 
 trigger:
   branch:
@@ -12,6 +12,7 @@ steps:
 - name: Deploy container
   image: docker/compose
   commands:
+  - cd whoami
   - docker ps -a
   - docker-compose up -d
   volumes:
