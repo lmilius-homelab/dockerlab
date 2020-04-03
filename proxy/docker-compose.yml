@@ -4,9 +4,17 @@ services:
     image: traefik:v2.2
     labels:
     - "traefik.enable=true"
+    - "traefik.http.routers.traefik.entrypoints=http"
     - "traefik.http.routers.traefik.rule=Host(`proxy.lukemilius.com`)"
-    - "traefik.http.routers.traefik.service=api@internal"
-    - "traefik.http.routers.whoami.tls.certresolver=cloudflare"
+    - "traefik.http.routers.traefik.middlewares=https_redirect"
+    - "traefik.http.routers.traefik-secure.entrypoints=https"
+    - "traefik.http.routers.traefik-secure.rule=Host(`proxy.lukemilius.com`)"
+#    - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+    - "traefik.http.routers.traefik.tls=true"
+    - "traefik.http.routers.traefik.tls.certresolver=cloudflare"
+    - "traefik.http.routers.traefik.tls.domains[0].main=lukemilius.com"
+    - "traefik.http.routers.traefik.tls.domains[0].sans=*.lukemilius.com"
+    - "traefik.http.routers.traefik-secure.service=api@internal"
     ports:
     - 80:80
     - 443:443
