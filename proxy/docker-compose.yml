@@ -6,13 +6,12 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.traefik.rule=Host(`proxy.lukemilius.com`)"
     - "traefik.http.routers.traefik.service=api@internal"
-    - "providers.file.filename=/config.yaml"
     ports:
     - 80:80
     - 443:443
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock:ro
-    - config.yaml:/config.yaml
+    - ./traefik.yaml:/etc/traefik/traefik.yaml
     - letsencrypt:/letsencrypt
     networks:
     - proxy
