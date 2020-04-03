@@ -1,6 +1,17 @@
 version: '2.2'
 services:
   whoami:
-    image: jwilder/whoami
+    image: containous/whoami
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.whoami.rule=Host(`whoami.lukemilius.com`)"
+    - "traefik.http.routers.whoami.entrypoints=websecure"
     ports:
-    - 8000:8000
+    - 80
+    networks:
+    - proxy
+    scale: 2
+
+networks:
+  proxy:
+    external: true

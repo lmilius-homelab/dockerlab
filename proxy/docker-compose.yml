@@ -2,9 +2,40 @@ version: '2.2'
 services:
   traefik:
     image: traefik:v2.2
-    command: --api.insecure=true --providers.docker
+    command: 
+    - "--api.dashboard=true"
+    - "--providers.docker=true"
+    - "--providers.docker.exposedbydefault=false"
+    - "--entrypoints.web.address=:80"
+    - "--entrypoints.websecure.address=:443"
+    - "--certificatesresolvers.cloudflare.acme.dnschallenge=true"
+    - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
+    - "--certificatesresolvers.cloudflare.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+    - "--certificatesresolvers.cloudflare.acme.email=info@lukemilius.com"
+    - "--certificatesresolvers.cloudflare.acme.storage=/letsencrypt/acme.json"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.traefik.rule=Host(`proxy.lukemilius.com`)"
+    - "traefik.http.routers.traefik.service=api@internal"
+    - "traefik.http.routers.http_catchall.rule=HostRegexp(`{any:.+}`)"
+    - "traefik.http.routers.http_catchall.entrypoints=web"
+    - "traefik.http.routers.http_catchall.middlewares=https_redirect"
+    - "traefik.http.middlewares.https_redirect.redirectscheme.scheme=https"
+    - "traefik.http.middlewares.https_redirect.redirectscheme.permanent=true"
     ports:
+    - 80:80
     - 443:443
-    - 8081:8080
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    - letsencrypt:/letsencrypt
+    networks:
+    - proxy
+    env_file:
+    - .env
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  letsencrypt:
