@@ -6,6 +6,7 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.traefik.rule=Host(`proxy.lukemilius.com`)"
     - "traefik.http.routers.traefik.service=api@internal"
+    - "traefik.http.routers.whoami.tls.certresolver=cloudflare"
     ports:
     - 80:80
     - 443:443

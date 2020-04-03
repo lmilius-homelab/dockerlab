@@ -5,7 +5,7 @@ services:
     labels:
     - "traefik.http.routers.whoami.rule=Host(`whoami.lukemilius.com`)"
     - "traefik.http.routers.whoami.entrypoints=websecure"
-    - "traefik.http.routers.whoami.tls=true"
+    - "traefik.http.routers.whoami.tls.certresolver=cloudflare"
     expose:
     - 80
     networks:
