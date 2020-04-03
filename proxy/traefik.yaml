@@ -18,6 +18,8 @@ certificatesResolvers:
     acme:
       dnschallenge:
         provider: cloudflare
+        dnsResolvers:
+        - "1.1.1.1"
       caserver: https://acme-staging-v02.api.letsencrypt.org/directory
       email: info@lukemilius.com
       storage: /letsencrypt/acme.json
