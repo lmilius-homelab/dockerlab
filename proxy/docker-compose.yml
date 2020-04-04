@@ -32,6 +32,7 @@ services:
       OAUTH2_PROXY_PROVIDER: "github"
       OAUTH2_PROXY_GITHUB_ORGS: "lmilius-homelab"
       OAUTH2_PROXY_COOKIE_DOMAIN: ".lukemilius.com"
+      OAUTH2_PROXY_WHITELIST_DOMAINS: ".lukemilius.com"
     env_file:
     - .env
     labels:
