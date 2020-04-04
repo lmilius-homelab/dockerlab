@@ -23,25 +23,40 @@ services:
     env_file:
     - .env
 
+#  forward-auth:
+#    image: quay.io/oauth2-proxy/oauth2-proxy:v5.1.0
+#    networks:
+#    - proxy
+#    environment:
+#      OAUTH2_PROXY_EMAIL_DOMAINS: "*"
+#      OAUTH2_PROXY_PROVIDER: "github"
+#      OAUTH2_PROXY_GITHUB_ORGS: "lmilius-homelab"
+#      OAUTH2_PROXY_COOKIE_DOMAIN: ".lukemilius.com"
+#      OAUTH2_PROXY_WHITELIST_DOMAINS: ".lukemilius.com"
+#    env_file:
+#    - .env
+#    ports:
+#    - 4180
+#    labels:
+#    - "traefik.enable=true"
+#    - "traefik.http.routers.forward-auth.entrypoints=websecure"
+#    - "traefik.http.routers.forward-auth.rule=Host(`auth.lukemilius.com`)"
+#    - "traefik.http.routers.forward-auth.tls=true"
+
   forward-auth:
-    image: quay.io/oauth2-proxy/oauth2-proxy:v5.1.0
+    image: thomseddon/traefik-forward-auth:2
     networks:
     - proxy
-    environment:
-      OAUTH2_PROXY_EMAIL_DOMAINS: "*"
-      OAUTH2_PROXY_PROVIDER: "github"
-      OAUTH2_PROXY_GITHUB_ORGS: "lmilius-homelab"
-      OAUTH2_PROXY_COOKIE_DOMAIN: ".lukemilius.com"
-      OAUTH2_PROXY_WHITELIST_DOMAINS: ".lukemilius.com"
-    env_file:
-    - .env
-    ports:
-    - 4180
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.forward-auth.entrypoints=websecure"
     - "traefik.http.routers.forward-auth.rule=Host(`auth.lukemilius.com`)"
     - "traefik.http.routers.forward-auth.tls=true"
+    environment:
+      COOKIE_DOMAIN: lukemilius.com
+      AUTH_HOST: auth.lukemilius.com
+    env_file:
+    - .env
 
 
 networks:
