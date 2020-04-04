@@ -10,7 +10,6 @@ providers:
     watch: true
   docker:
     exposedByDefault: false
-    defaultRule: "Host(`{{ .Name }}.lukemilius.com`)"
 
 entrypoints:
   web:
