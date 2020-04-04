@@ -54,10 +54,7 @@ services:
     - "traefik.http.routers.forward-auth.entrypoints=websecure"
     - "traefik.http.routers.forward-auth.rule=Host(`auth.lukemilius.com`)"
     - "traefik.http.routers.forward-auth.tls=true"
-    - "traefik.http.middlewares.fa-verify.forwardAuth.address=http://auth.lukemilius.com"
-    - "traefik.http.middlewares.fa-verify.forwardAuth.trustForwardHeader=true"
-    - "traefik.http.middlewares.fa-verify.forwardAuth.authResponseHeaders=X-Forwarded-User"
-    - "traefik.http.routers.forward-auth.middlewares=fa-verify"
+    - "traefik.http.routers.forward-auth.middlewares=github_auth@file"
     environment:
       COOKIE_DOMAIN: lukemilius.com
       AUTH_HOST: auth.lukemilius.com
