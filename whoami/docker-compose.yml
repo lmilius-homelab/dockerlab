@@ -11,6 +11,7 @@ services:
     - 80
     networks:
     - proxy
+    scale: 3
 
 networks:
   proxy:
