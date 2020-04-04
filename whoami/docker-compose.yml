@@ -6,7 +6,7 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.whoami.entrypoints=websecure"
     - "traefik.http.routers.whoami.rule=Host(`whoami.lukemilius.com`)"
-    - "traefik.http.routers.whoami.middlewares=github_auth"
+    - "traefik.http.routers.whoami.middlewares=github_auth@file"
     - "traefik.http.routers.whoami.tls=true"
     expose:
     - 80
