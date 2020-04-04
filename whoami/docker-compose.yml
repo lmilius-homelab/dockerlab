@@ -1,6 +1,7 @@
 version: '2.4'
 services:
   whoami:
+    container_name: whoami
     image: containous/whoami
     labels:
     - "traefik.enable=true"
