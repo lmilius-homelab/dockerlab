@@ -17,6 +17,7 @@ entrypoints:
   websecure:
     address: ":443"
 
+
 certificatesResolvers:
   cloudflare:
     acme:
@@ -42,6 +43,11 @@ http:
       service: noop@internal
 
   middlewares:
+    github_auth:
+      forwardAuth:
+        address: "https://auth.lukemilius.com"
+        authResponseHeaders:
+        - "X-Forwarded-User"
     https_redirect:
       redirectScheme:
         scheme: https

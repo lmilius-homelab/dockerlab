@@ -23,6 +23,24 @@ services:
     env_file:
     - .env
 
+  forward-auth:
+    image: thomseddon/traefik-forward-auth:2
+    networks:
+    - proxy
+    environment:
+    - WHITELIST: lmilius
+    - AUTH_HOST: auth.lukemilius.com
+    - DEFAULT_PROVIDER: oidc
+    - COOKIE_DOMAIN: lukemilius.com
+    env_file:
+    - .env
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.forward-auth.entrypoints=websecure"
+    - "traefik.http.routers.forward-auth.rule=Host(`auth.lukemilius.com`)"
+    - "traefik.http.routers.forward-auth.tls=true"
+
+
 networks:
   proxy:
     external: true
