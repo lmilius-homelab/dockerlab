@@ -8,7 +8,9 @@ providers:
   file:
     filename: /etc/traefik/traefik.yaml
     watch: true
-  docker: true
+  docker:
+    exposedByDefault: false
+    defaultRule: "Host(`{{ .Name }}.lukemilius.com`)"
 
 entrypoints:
   web:
@@ -23,6 +25,7 @@ certificatesResolvers:
         provider: cloudflare
         resolvers:
         - "1.1.1.1:53"
+      # When doing testing, uncomment the below line to prevent hitting LetsEncrypt limits
       caserver: https://acme-staging-v02.api.letsencrypt.org/directory
       email: info@lukemilius.com
       storage: /letsencrypt/acme.json
@@ -38,13 +41,6 @@ http:
         - https_redirect
       rule: "HostRegexp(`{any:.+}`)"
       service: noop@internal
-
-#  services:
-#    # noop service, the URL will be never called
-#    noop:
-#      loadBalancer:
-#        servers:
-#          - url: http://192.168.0.1:1337
 
   middlewares:
     https_redirect:
