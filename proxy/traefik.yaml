@@ -46,6 +46,7 @@ http:
     github_auth:
       forwardAuth:
         address: "https://auth.lukemilius.com/oauth2/auth"
+        trustForwardHeader: true
         authResponseHeaders:
         - "X-Forwarded-User"
     https_redirect:
