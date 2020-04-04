@@ -28,6 +28,7 @@ services:
     networks:
     - proxy
     environment:
+      OAUTH2_PROXY_EMAIL_DOMAINS: "*"
       OAUTH2_PROXY_PROVIDER: "github"
       OAUTH2_PROXY_GITHUB_ORGS: "lmilius-homelab"
       OAUTH2_PROXY_COOKIE_DOMAIN: ".lukemilius.com"
