@@ -11,10 +11,10 @@ services:
     - "traefik.http.routers.traefik-secure.entrypoints=websecure"
     - "traefik.http.routers.traefik-secure.rule=Host(`proxy.lukemilius.com`)"
 #    - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
-    - "traefik.http.routers.traefik.tls=true"
-    - "traefik.http.routers.traefik.tls.certresolver=cloudflare"
-    - "traefik.http.routers.traefik.tls.domains[0].main=lukemilius.com"
-    - "traefik.http.routers.traefik.tls.domains[0].sans=*.lukemilius.com"
+    - "traefik.http.routers.traefik-secure.tls=true"
+    - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+    - "traefik.http.routers.traefik-secure.tls.domains[0].main=lukemilius.com"
+    - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.lukemilius.com"
     - "traefik.http.routers.traefik-secure.service=api@internal"
     ports:
     - 80:80
