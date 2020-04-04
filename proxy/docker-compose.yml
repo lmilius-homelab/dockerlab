@@ -28,10 +28,10 @@ services:
     networks:
     - proxy
     environment:
-    - WHITELIST: lmilius
-    - AUTH_HOST: auth.lukemilius.com
-    - DEFAULT_PROVIDER: oidc
-    - COOKIE_DOMAIN: lukemilius.com
+      WHITELIST: lmilius
+      AUTH_HOST: auth.lukemilius.com
+      DEFAULT_PROVIDER: oidc
+      COOKIE_DOMAIN: lukemilius.com
     env_file:
     - .env
     labels:
