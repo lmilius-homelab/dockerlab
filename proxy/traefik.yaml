@@ -45,7 +45,7 @@ http:
   middlewares:
     github_auth:
       forwardAuth:
-        address: "https://auth.lukemilius.com/oauth2/auth"
+        address: "https://auth.lukemilius.com"
         trustForwardHeader: true
         authResponseHeaders:
         - "X-Forwarded-User"

@@ -47,6 +47,8 @@ services:
     image: thomseddon/traefik-forward-auth:2
     networks:
     - proxy
+    ports:
+    - 4181
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.forward-auth.entrypoints=websecure"
