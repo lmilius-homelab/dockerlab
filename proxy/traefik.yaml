@@ -7,6 +7,7 @@ log:
 providers:
   file:
     filename: /etc/traefik/traefik.yaml
+    watch: true
   docker: true
 
 entrypoints:
