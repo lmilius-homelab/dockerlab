@@ -35,6 +35,8 @@ services:
       OAUTH2_PROXY_WHITELIST_DOMAINS: ".lukemilius.com"
     env_file:
     - .env
+    ports:
+    - 4180
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.forward-auth.entrypoints=websecure"
