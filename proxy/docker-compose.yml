@@ -24,14 +24,13 @@ services:
     - .env
 
   forward-auth:
-    image: thomseddon/traefik-forward-auth:2
+    image: quay.io/oauth2-proxy/oauth2-proxy:v5.1.0
     networks:
     - proxy
     environment:
-      WHITELIST: lmilius
-      AUTH_HOST: auth.lukemilius.com
-      DEFAULT_PROVIDER: oidc
-      COOKIE_DOMAIN: lukemilius.com
+      OAUTH2_PROXY_PROVIDER: "github"
+      OAUTH2_PROXY_GITHUB_ORGS: "lmilius-homelab"
+      OAUTH2_PROXY_COOKIE_DOMAIN: ".lukemilius.com"
     env_file:
     - .env
     labels:
