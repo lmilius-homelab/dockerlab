@@ -49,6 +49,8 @@ http:
         trustForwardHeader: true
         authResponseHeaders:
         - "X-Forwarded-User"
+        tls:
+          insecureSkipVerify: true
     https_redirect:
       redirectScheme:
         scheme: https
