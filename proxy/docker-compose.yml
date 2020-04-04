@@ -57,7 +57,7 @@ services:
     - "traefik.http.middlewares.fa-verify.forwardAuth.address=http://traefik-forward-auth:4181"
     - "traefik.http.middlewares.fa-verify.forwardAuth.trustForwardHeader=true"
     - "traefik.http.middlewares.fa-verify.forwardAuth.authResponseHeaders=X-Forwarded-User"
-    - "traefik.http.routers.forward-auth.middlewares=tfa-verify"
+    - "traefik.http.routers.forward-auth.middlewares=fa-verify"
     environment:
       COOKIE_DOMAIN: lukemilius.com
       AUTH_HOST: auth.lukemilius.com
