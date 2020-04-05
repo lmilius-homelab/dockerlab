@@ -113,3 +113,43 @@ volumes:
 - name: dockersock
   host:
     path: /var/run/docker.sock
+
+
+
+---
+kind: pipeline
+name: volumerize
+type: docker
+
+trigger:
+  branch:
+  - master
+  event:
+  - push
+
+steps:
+- name: Validate
+  image: docker/compose
+  commands:
+    - cd volumerize
+    - docker-compose config
+  when:
+    event:
+    - pull_request
+
+- name: Deploy
+  image: docker/compose
+  commands:
+  - cd volumerize
+  - docker-compose up -d
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+  when:
+    event:
+    - push
+
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
