@@ -11,6 +11,7 @@ services:
     - "traefik.http.routers.port-internal.entrypoints=websecure"
     - "traefik.http.routers.port-internal.rule=Host(`portainer-int.lukemilius.com`)"
     - "traefik.http.routers.port-internal.middlewares=internal_only@file"
+    - "traefik.http.routers.port-internal.tls=true"
     expose:
     - 9000
     volumes:
