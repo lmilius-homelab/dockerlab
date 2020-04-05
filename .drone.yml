@@ -204,9 +204,9 @@ depends_on:
 
 steps:
 - name: deploy
-  image: maniack/drone-portainer:1.0.0-rc.1
+  image: maniack/drone-portainer
   settings:
-    portainer: https://portainer.lukemilius.com:8080
+    portainer: https://portainer-int.lukemilius.com
     username:
       from_secret: portainer_username
     password:
