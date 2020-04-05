@@ -13,7 +13,8 @@ steps:
   commands:
     - cd proxy
     - ls
-    - 'for i in example*;do mv "$i" "${i#example}";done'
+    - 'for i in example.*;do mv "$i" ".${i#example.}";done'
+    - ls
     - docker-compose config
   when:
     event:
