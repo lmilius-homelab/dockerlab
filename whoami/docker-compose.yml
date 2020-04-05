@@ -18,10 +18,10 @@ services:
     image: containous/whoami
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.entrypoints=websecure"
-      - "traefik.http.routers.whoami.rule=Host(`whoami2.lukemilius.com`)"
-      - "traefik.http.routers.whoami.middlewares=github_auth@file"
-      - "traefik.http.routers.whoami.tls=true"
+      - "traefik.http.routers.whoami2.entrypoints=websecure"
+      - "traefik.http.routers.whoami2.rule=Host(`whoami2.lukemilius.com`)"
+      - "traefik.http.routers.whoami2.middlewares=github_auth@file"
+      - "traefik.http.routers.whoami2.tls=true"
     expose:
       - 80
     networks:
