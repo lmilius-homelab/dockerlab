@@ -1,0 +1,19 @@
+version: '2.4'
+services:
+  whoami2:
+    image: containous/whoami
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.whoami2.entrypoints=websecure"
+    - "traefik.http.routers.whoami2.rule=Host(`whoami2.lukemilius.com`)"
+    - "traefik.http.routers.whoami2.middlewares=tfa-verify"
+    - "traefik.http.routers.whoami2.tls=true"
+    expose:
+    - 80
+    networks:
+    - proxy
+    scale: 3
+
+networks:
+  proxy:
+    external: true
