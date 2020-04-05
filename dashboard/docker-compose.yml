@@ -1,0 +1,29 @@
+version: '2.4'
+services:
+  grafana:
+    image: grafana/grafana
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.grafana.entrypoints=websecure"
+    - "traefik.http.routers.grafana.rule=Host(`dashboard.lukemilius.com`)"
+    - "traefik.http.routers.grafana.middlewares=tfa-verify"
+    - "traefik.http.routers.grafana.tls=true"
+    - "traefik.docker.network=proxy"
+    expose:
+    - 3000
+    volumes:
+    - data:/var/lib/grafana
+    - config:/etc/grafana
+    networks:
+    - proxy
+    - metrics
+    restart: always
+
+networks:
+  metrics:
+  proxy:
+    external: true
+
+volumes:
+  data:
+  config:
