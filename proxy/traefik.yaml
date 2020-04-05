@@ -43,14 +43,6 @@ http:
       service: noop@internal
 
   middlewares:
-    github_auth:
-      forwardAuth:
-        address: "https://auth.lukemilius.com"
-        trustForwardHeader: true
-        authResponseHeaders:
-        - "X-Forwarded-User"
-        tls:
-          insecureSkipVerify: true
     https_redirect:
       redirectScheme:
         scheme: https
