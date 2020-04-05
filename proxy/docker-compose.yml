@@ -36,7 +36,7 @@ services:
       OAUTH2_PROXY_WHITELIST_DOMAINS: ".lukemilius.com"
     env_file:
     - .env
-    ports:
+    expose:
     - 4180
     labels:
     - "traefik.enable=true"
@@ -49,7 +49,7 @@ services:
     image: thomseddon/traefik-forward-auth:2
     networks:
     - proxy
-    ports:
+    expose:
     - 4181
     labels:
     - "traefik.enable=true"
