@@ -62,7 +62,7 @@ services:
     environment:
       COOKIE_DOMAIN: lukemilius.com
       AUTH_HOST: auth.lukemilius.com
-      LOG_LEVEL: debug
+#      LOG_LEVEL: debug
     env_file:
     - .env
 

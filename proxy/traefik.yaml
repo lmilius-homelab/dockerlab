@@ -2,7 +2,8 @@ api:
   dashboard: true
 
 log:
-  level: DEBUG
+  level: INFO
+#  level: DEBUG
 
 providers:
   file:
