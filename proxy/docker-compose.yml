@@ -43,6 +43,7 @@ services:
     - "traefik.http.routers.github-auth.entrypoints=websecure"
     - "traefik.http.routers.github-auth.rule=Host(`auth2.lukemilius.com`)"
     - "traefik.http.routers.github-auth.tls=true"
+    - "traefik.http.routers.github-auth.middlewares=github_auth@file"
 
   forward-auth:
     image: thomseddon/traefik-forward-auth:2
