@@ -1,6 +1,6 @@
 version: '2.4'
 services:
-  whoami:
+  portainer:
     image: portainer/portainer:latest
     labels:
     - "traefik.enable=true"
