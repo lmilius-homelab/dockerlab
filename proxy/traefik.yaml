@@ -26,7 +26,7 @@ certificatesResolvers:
         resolvers:
         - "1.1.1.1:53"
       # When doing testing, uncomment the below line to prevent hitting LetsEncrypt limits
-      caserver: https://acme-staging-v02.api.letsencrypt.org/directory
+      #caserver: https://acme-staging-v02.api.letsencrypt.org/directory
       email: info@lukemilius.com
       storage: /letsencrypt/acme.json
 
