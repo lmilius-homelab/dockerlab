@@ -12,7 +12,7 @@ steps:
   image: docker/compose
   commands:
     - cd proxy
-    - remove=.example
+    - remove=example
     - for i in  "$remove"*;do mv "$i" "${i#"$remove"}";done
     - docker-compose config
   when:
