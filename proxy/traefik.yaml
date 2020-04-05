@@ -53,4 +53,5 @@ http:
     internal_only:
       ipWhiteList:
         sourceRange:
-          - "10.10.200.0/24"
+          - "10.0.0.0/8"
+          - "172.16.0.0/12"
