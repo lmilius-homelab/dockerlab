@@ -12,6 +12,7 @@ steps:
   image: docker/compose
   commands:
     - cd proxy
+    - ls
     - 'for i in example*;do mv "$i" "${i#example}";done'
     - docker-compose config
   when:
