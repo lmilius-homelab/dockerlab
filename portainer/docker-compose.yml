@@ -12,6 +12,7 @@ services:
     - 9000
     volumes:
     - portainer:/data
+    - /var/lib/docker.sock:/var/lib/docker.sock
     networks:
     - proxy
 
