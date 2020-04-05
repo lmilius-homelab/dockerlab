@@ -48,9 +48,3 @@ http:
       redirectScheme:
         scheme: https
         permanent: true
-    github_auth:
-      forwardAuth:
-        address: "http://github-auth:4180"
-        trustForwardHeader: true
-        authResponseHeaders:
-          - "X-Forwarded-User"
