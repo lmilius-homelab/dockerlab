@@ -204,13 +204,13 @@ depends_on:
 
 steps:
 - name: deploy
-  image: robkaandorp/drone-portainer
+  image: lmilius/drone-portainer-deploy
   settings:
-    portainer_url: https://portainer-int.lukemilius.com
-    portainer_username:
+    url: https://portainer-int.lukemilius.com
+    username:
       from_secret: portainer_username
-    portainer_password:
+    password:
       from_secret: portainer_password
     endpoint: primary
     stack_name: dashboard
-    compose_file: dashboard/docker-compose.yml
+    stack_file: dashboard/docker-compose.yml
