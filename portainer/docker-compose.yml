@@ -8,10 +8,8 @@ services:
     - "traefik.http.routers.portainer.rule=Host(`portainer.lukemilius.com`)"
     - "traefik.http.routers.portainer.middlewares=tfa-verify"
     - "traefik.http.routers.portainer.tls=true"
-    - "traefik.tcp.services.port-internal-svc.loadbalancer.server.port=9000"
-    - "traefik.tcp.routers.port-internal.entrypoints=internal"
-    - "traefik.tcp.routers.port-internal.rule=HostSNI(`portainer-int.lukemilius.com`)"
-    - "traefik.tcp.routers.port-internal.service=port-internal-svc"
+    - "traefik.http.routers.port-internal.entrypoints=internal"
+    - "traefik.http.routers.port-internal.rule=HostSNI(`portainer-int.lukemilius.com`)"
     expose:
     - 9000
     volumes:
