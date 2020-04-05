@@ -1,38 +1,38 @@
----
-kind: pipeline
-name: Proxy
-type: docker
-
-trigger:
-  branch:
-  - master
-
-steps:
-- name: Validate
-  image: docker/compose
-  commands:
-    - cd proxy
-    - ls
-  when:
-    event:
-    - pull_request
-
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd proxy
-  - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  when:
-    event:
-    - push
-
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
+#---
+#kind: pipeline
+#name: Proxy
+#type: docker
+#
+#trigger:
+#  branch:
+#  - master
+#
+#steps:
+#- name: Validate
+#  image: docker/compose
+#  commands:
+#    - cd proxy
+#    - ls
+#  when:
+#    event:
+#    - pull_request
+#
+#- name: Deploy
+#  image: docker/compose
+#  commands:
+#  - cd proxy
+#  - docker-compose up -d
+#  volumes:
+#  - name: dockersock
+#    path: /var/run/docker.sock
+#  when:
+#    event:
+#    - push
+#
+#volumes:
+#- name: dockersock
+#  host:
+#    path: /var/run/docker.sock
 
 
 

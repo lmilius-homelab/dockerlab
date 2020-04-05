@@ -21,6 +21,7 @@ services:
     - letsencrypt:/letsencrypt
     networks:
     - proxy
+    restart: always
     env_file:
     - .env
 
@@ -30,6 +31,7 @@ services:
     - proxy
     expose:
     - 4181
+    restart: always
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.forward-auth.entrypoints=websecure"

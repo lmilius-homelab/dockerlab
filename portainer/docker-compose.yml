@@ -15,6 +15,7 @@ services:
     - /var/run/docker.sock:/var/run/docker.sock
     networks:
     - proxy
+    restart: always
 
 networks:
   proxy:

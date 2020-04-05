@@ -13,6 +13,7 @@ services:
     networks:
     - proxy
     scale: 3
+    restart: always
 
 networks:
   proxy:
