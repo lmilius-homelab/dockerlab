@@ -9,7 +9,7 @@ services:
     - "traefik.http.routers.portainer.middlewares=tfa-verify"
     - "traefik.http.routers.portainer.tls=true"
     - "traefik.http.routers.port-internal.entrypoints=internal"
-    - "traefik.http.routers.port-internal.rule=Host(`portainer.lukemilius.com`)"
+    - "traefik.http.routers.port-internal.rule=Host(`portainer-int.lukemilius.com`)"
     expose:
     - 9000
     volumes:
