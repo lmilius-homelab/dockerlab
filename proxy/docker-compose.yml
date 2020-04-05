@@ -40,9 +40,9 @@ services:
     - 4180
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.forward-auth.entrypoints=websecure"
-    - "traefik.http.routers.forward-auth.rule=Host(`auth.lukemilius.com`)"
-    - "traefik.http.routers.forward-auth.tls=true"
+    - "traefik.http.routers.github-auth.entrypoints=websecure"
+    - "traefik.http.routers.github-auth.rule=Host(`auth2.lukemilius.com`)"
+    - "traefik.http.routers.github-auth.tls=true"
 
   forward-auth:
     image: thomseddon/traefik-forward-auth:2
@@ -53,7 +53,7 @@ services:
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.forward-auth.entrypoints=websecure"
-    - "traefik.http.routers.forward-auth.rule=Host(`auth2.lukemilius.com`)"
+    - "traefik.http.routers.forward-auth.rule=Host(`auth.lukemilius.com`)"
     - "traefik.http.routers.forward-auth.tls=true"
     - "traefik.http.middlewares.tfa-verify.forwardAuth.address=http://forward-auth:4181"
     - "traefik.http.middlewares.tfa-verify.forwardAuth.trustForwardHeader=true"
