@@ -17,6 +17,8 @@ entrypoints:
     address: ":80"
   websecure:
     address: ":443"
+  internal:
+    address: ":8080"
 
 
 certificatesResolvers:

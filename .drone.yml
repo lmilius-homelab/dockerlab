@@ -155,40 +155,65 @@ volumes:
     path: /var/run/docker.sock
 
 
+#---
+#kind: pipeline
+#name: dashboard
+#type: docker
+#
+#trigger:
+#  branch:
+#  - master
+#  event:
+#  - push
+#
+#steps:
+#- name: Validate
+#  image: docker/compose
+#  commands:
+#    - cd dashboard
+#    - docker-compose config
+#  when:
+#    event:
+#    - pull_request
+#
+#- name: Deploy
+#  image: docker/compose
+#  commands:
+#  - cd dashboard
+#  - docker-compose up -d
+#  volumes:
+#  - name: dockersock
+#    path: /var/run/docker.sock
+#  when:
+#    event:
+#    - push
+#
+#volumes:
+#- name: dockersock
+#  host:
+#    path: /var/run/docker.sock
+
+
 ---
 kind: pipeline
-name: dashboard
 type: docker
+name: dashboard
 
-trigger:
-  branch:
-  - master
-  event:
-  - push
+depends_on:
+- portainer
 
 steps:
-- name: Validate
-  image: docker/compose
-  commands:
-    - cd dashboard
-    - docker-compose config
-  when:
-    event:
-    - pull_request
-
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd dashboard
-  - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  when:
-    event:
-    - push
-
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
+- name: deploy
+  image: maniack/drone-portainer:1.0.0-rc.1
+  settings:
+    portainer: https://portainer.lukemilius.com:8080
+    username:
+      from_secret: portainer_username
+    password:
+      from_secret: portainer_password
+    endpoint: local
+    stack: dashboard
+    file: dashboard/docker-compose.yml
+#    environment:
+#      - DEBUG=true
+#    debug: true
