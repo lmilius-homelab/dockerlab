@@ -11,7 +11,7 @@ services:
     - "traefik.http.routers.port-internal.entrypoints=internal"
     - "traefik.http.routers.port-internal.rule=Host(`portainer-int.lukemilius.com`)"
     - "traefik.http.routers.port-internal.service=port-internal-svc"
-    - "traefik.http.services.port-internal-svc.loadbalancer.server.port=8080"
+    - "traefik.http.services.port-internal-svc.loadbalancer.server.port=9000"
     expose:
     - 9000
     volumes:
