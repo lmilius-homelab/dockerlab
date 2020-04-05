@@ -1,0 +1,23 @@
+version: '2.4'
+services:
+  whoami:
+    image: portainer/portainer:latest
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.portainer.entrypoints=websecure"
+    - "traefik.http.routers.portainer.rule=Host(`portainer.lukemilius.com`)"
+    - "traefik.http.routers.portainer.middlewares=tfa-verify"
+    - "traefik.http.routers.portainer.tls=true"
+    expose:
+    - 9000
+    volumes:
+    - portainer:/data
+    networks:
+    - proxy
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  portainer:
