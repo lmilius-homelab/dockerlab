@@ -12,7 +12,7 @@ steps:
   image: docker/compose
   commands:
     - cd proxy
-    - docker-compose config
+    - docker-compose config --no-interpolate
   when:
     event:
     - pull_request
