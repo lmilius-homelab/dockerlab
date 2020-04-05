@@ -13,7 +13,7 @@ steps:
   commands:
     - cd proxy
     - remove=example
-    - for i in  "$remove"*;do mv "$i" "${i#"$remove"}";done
+    - 'for i in  "$remove"*;do mv "$i" "${i#"$remove"}";done'
     - docker-compose config
   when:
     event:
