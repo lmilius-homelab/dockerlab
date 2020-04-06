@@ -19,7 +19,7 @@ services:
     - /var/run/docker.sock:/var/run/docker.sock
     networks:
     - proxy
-    restart: always
+    restart: unless-stopped
 
 networks:
   proxy:

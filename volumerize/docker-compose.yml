@@ -8,11 +8,13 @@ services:
     - portainer_portainer:/source/portainer_portainer:ro
     - proxy_letsencrypt:/source/proxy_letsencrypt:ro
     - drone_data:/source/drone_data:ro
+    - dashboard_data:/source/dashboard_data:ro
+    - dashboard_config:/source/dashboard_config:ro
 
     - cache:/volumerize-cache
     - /mnt/cont_data/backups:/backup
     - /var/run/docker.sock:/var/run/docker.sock
-    restart: always
+    restart: unless-stopped
     environment:
       UID: 1100
       GID: 1100
@@ -27,5 +29,9 @@ volumes:
   proxy_letsencrypt:
     external: true
   drone_data:
+    external: true
+  dashboard_data:
+    external: true
+  dashboard_config:
     external: true
 

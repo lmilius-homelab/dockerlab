@@ -21,9 +21,10 @@ services:
     - letsencrypt:/letsencrypt
     networks:
     - proxy
-    restart: always
-    env_file:
-    - .env
+    restart: unless-stopped
+    environment:
+      CF_API_EMAIL: ${CF_API_EMAIL}
+      CF_API_KEY: ${CF_API_KEY}
 
   forward-auth:
     image: thomseddon/traefik-forward-auth:2
@@ -31,7 +32,7 @@ services:
     - proxy
     expose:
     - 4181
-    restart: always
+    restart: unless-stopped
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.forward-auth.entrypoints=websecure"
@@ -44,10 +45,11 @@ services:
     environment:
       COOKIE_DOMAIN: lukemilius.com
       AUTH_HOST: auth.lukemilius.com
+      WHITELIST: ${WHITELIST} # Whitelisted email addresses
+      SECRET: ${COOKIE_SECRET}
+      PROVIDERS_GOOGLE_CLIENT_ID: ${PROVIDERS_GOOGLE_CLIENT_ID}
+      PROVIDERS_GOOGLE_CLIENT_SECRET: ${PROVIDERS_GOOGLE_CLIENT_SECRET}
 #      LOG_LEVEL: debug
-    env_file:
-    - .env
-
 
 networks:
   proxy:

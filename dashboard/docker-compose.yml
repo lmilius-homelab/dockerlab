@@ -17,9 +17,7 @@ services:
     networks:
     - proxy
     - metrics
-    restart: always
-    environment:
-      USERNAME: ${USERNAME}
+    restart: unless-stopped
 
 networks:
   metrics:
