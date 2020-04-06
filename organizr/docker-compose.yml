@@ -1,0 +1,28 @@
+version: "2"
+services:
+  organizr:
+    image: linuxserver/organizr
+    environment:
+      - PUID=1100
+      - PGID=1100
+      - TZ=America/Chicago
+    volumes:
+      - config:/config
+    expose:
+      - 80
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.organizr.entrypoints=websecure"
+    - "traefik.http.routers.organizr.rule=Host(`panel.lukemilius.com`)"
+    - "traefik.http.routers.organizr.middlewares=tfa-verify"
+    - "traefik.http.routers.organizr.tls=true"
+    restart: unless-stopped
+    networks:
+    - proxy
+
+volumes:
+  config:
+
+networks:
+  proxy:
+    external: true
