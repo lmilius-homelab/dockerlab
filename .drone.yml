@@ -1,48 +1,5 @@
 ---
 kind: pipeline
-name: proxy
-type: docker
-
-trigger:
-  branch:
-  - master
-  event:
-  - push
-
-steps:
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd proxy
-  - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  environment:
-    CF_API_EMAIL:
-      from_secret: cf_api_email
-    CF_API_KEY:
-      from_secret: cf_api_key
-    WHITELIST:
-      from_secret: email_whitelist
-    COOKIE_SECRET:
-      from_secret: cookie_secret
-    PROVIDERS_GOOGLE_CLIENT_ID:
-      from_secret: google_client_id
-    PROVIDERS_GOOGLE_CLIENT_SECRET:
-      from_secret: google_client_secret
-  when:
-    event:
-    - push
-
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
-
-
----
-kind: pipeline
 name: whoami
 type: docker
 
