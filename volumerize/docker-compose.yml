@@ -10,7 +10,7 @@ services:
     - drone_data:/source/drone_data:ro
     - dashboard_data:/source/dashboard_data:ro
     - dashboard_config:/source/dashboard_config:ro
-    - muximux_config:/source/muximux_config:ro
+    - organizr_config:/source/organizr_config:ro
 
     - cache:/volumerize-cache
     - /mnt/cont_data/backups:/backup
@@ -33,6 +33,6 @@ volumes:
     external: true
   dashboard_config:
     external: true
-  muximux_config:
+  organizr_config:
     external: true
 
