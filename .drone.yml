@@ -151,36 +151,6 @@ volumes:
 
 ---
 kind: pipeline
-name: muximux
-type: docker
-
-trigger:
-  branch:
-  - master
-  event:
-  - push
-
-steps:
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd muximux
-  - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  when:
-    event:
-    - push
-
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
-
-
----
-kind: pipeline
 name: organizr
 type: docker
 
