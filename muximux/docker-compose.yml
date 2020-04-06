@@ -17,6 +17,12 @@ services:
     - "traefik.http.routers.muximux.middlewares=tfa-verify"
     - "traefik.http.routers.muximux.tls=true"
     restart: unless-stopped
+    networks:
+    - proxy
 
 volumes:
   config:
+
+networks:
+  proxy:
+    external: true
