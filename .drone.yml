@@ -1,3 +1,4 @@
+###################################
 ---
 kind: pipeline
 name: whoami
@@ -28,6 +29,7 @@ volumes:
     path: /var/run/docker.sock
 
 
+###################################
 ---
 kind: pipeline
 name: portainer
@@ -58,6 +60,7 @@ volumes:
     path: /var/run/docker.sock
 
 
+###################################
 ---
 kind: pipeline
 name: watchtower
@@ -88,7 +91,7 @@ volumes:
     path: /var/run/docker.sock
 
 
-
+###################################
 ---
 kind: pipeline
 name: volumerize
@@ -119,6 +122,7 @@ volumes:
     path: /var/run/docker.sock
 
 
+###################################
 ---
 kind: pipeline
 name: dashboard
@@ -137,8 +141,7 @@ steps:
   - cd dashboard
   - docker-compose up -d
   volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
+  - dockersock:/var/run/docker.sock
   when:
     event:
     - push
@@ -147,11 +150,12 @@ steps:
       from_secret: admin_password
 
 volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
+  dockersock:
+    host:
+      path: /var/run/docker.sock
 
 
+###################################
 ---
 kind: pipeline
 name: organizr
