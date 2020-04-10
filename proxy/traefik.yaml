@@ -50,7 +50,7 @@ http:
       middlewares:
         - tfa-verify@docker
       rule: "Host(`controller.lukemilius.com`)"
-      tls: true
+      tls: "true"
       service: controller
 
   services:
