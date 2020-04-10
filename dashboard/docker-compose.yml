@@ -79,7 +79,7 @@ services:
     - /:/rootfs:ro
     - /var/run:/var/run:rw
     - /sys:/sys:ro
-    - /var/lib/docker/:var/lib/docker:ro
+    - /var/lib/docker/:/var/lib/docker:ro
     expose:
     - 8080
     networks:
