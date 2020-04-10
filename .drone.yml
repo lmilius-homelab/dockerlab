@@ -180,3 +180,36 @@ volumes:
 - name: dockersock
   host:
     path: /var/run/docker.sock
+
+
+---
+kind: pipeline
+name: ddns
+type: docker
+
+trigger:
+  branch:
+  - master
+  event:
+  - push
+
+steps:
+- name: Deploy
+  image: docker/compose
+  commands:
+  - cd ddns
+  - docker-compose up -d
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+  when:
+    event:
+    - push
+  environment:
+    API_KEY:
+      from_secret: ddns_token
+
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock

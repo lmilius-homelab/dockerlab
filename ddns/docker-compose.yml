@@ -1,0 +1,9 @@
+version: "2.4"
+services:
+  ddns:
+    image: oznu/cloudflare-ddns
+    environment:
+      API_KEY: ${API_KEY}
+      ZONE: lukemilius.com
+      SUBDOMAIN: dyn
+    restart: unless-stopped
