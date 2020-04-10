@@ -28,7 +28,7 @@ volumes:
     path: /var/run/docker.sock
 
 
-###################################
+
 ---
 kind: pipeline
 name: portainer
@@ -59,7 +59,7 @@ volumes:
     path: /var/run/docker.sock
 
 
-###################################
+
 ---
 kind: pipeline
 name: watchtower
@@ -90,7 +90,7 @@ volumes:
     path: /var/run/docker.sock
 
 
-###################################
+
 ---
 kind: pipeline
 name: volumerize
@@ -121,7 +121,7 @@ volumes:
     path: /var/run/docker.sock
 
 
-###################################
+
 ---
 kind: pipeline
 name: dashboard
@@ -155,7 +155,7 @@ volumes:
     path: /var/run/docker.sock
 
 
-###################################
+
 ---
 kind: pipeline
 name: organizr
