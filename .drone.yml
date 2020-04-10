@@ -141,7 +141,8 @@ steps:
   - cd dashboard
   - docker-compose up -d
   volumes:
-  - dockersock:/var/run/docker.sock
+  - name: dockersock
+    path: /var/run/docker.sock
   when:
     event:
     - push
@@ -150,9 +151,9 @@ steps:
       from_secret: admin_password
 
 volumes:
-  dockersock:
-    host:
-      path: /var/run/docker.sock
+- name: dockersock:
+  host:
+    path: /var/run/docker.sock
 
 
 ###################################
