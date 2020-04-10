@@ -44,6 +44,20 @@ http:
         - https_redirect
       rule: "HostRegexp(`{any:.+}`)"
       service: noop@internal
+    controller:
+      entryPoints:
+        - websecure
+      middlewares:
+        - tfa-verify@docker
+      rule: "Host(`controller.lukemilius.com`)"
+      tls: true
+      service: controller
+
+  services:
+    controller:
+      loadbalancer:
+        servers:
+        - url: "https://unifi.lukemilius.com:8443"
 
   middlewares:
     https_redirect:
