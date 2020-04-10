@@ -142,6 +142,9 @@ steps:
   when:
     event:
     - push
+  environment:
+    GF_SECURITY_ADMIN_PASSWORD:
+      from_secret: admin_password
 
 volumes:
 - name: dockersock
