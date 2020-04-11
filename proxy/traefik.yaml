@@ -12,6 +12,9 @@ providers:
   docker:
     exposedByDefault: false
 
+serversTransport:
+  insecureSkipVerify: true
+
 entrypoints:
   web:
     address: ":80"
@@ -50,12 +53,12 @@ http:
       middlewares:
         - tfa-verify@docker
       rule: "Host(`controller.lukemilius.com`)"
-      tls: "true"
+      tls: {}
       service: controller
 
   services:
     controller:
-      loadbalancer:
+      loadBalancer:
         servers:
         - url: "https://unifi.lukemilius.com:8443"
 
