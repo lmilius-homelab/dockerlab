@@ -1,0 +1,24 @@
+version: '2.4'
+services:
+  registry:
+    image: registry:2
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.reg-internal.entrypoints=websecure"
+    - "traefik.http.routers.reg-internal.rule=Host(`registry.lukemilius.com`)"
+    - "traefik.http.routers.reg-internal.middlewares=internal_only@file"
+    - "traefik.http.routers.reg-internal.tls=true"
+    expose:
+    - 5000
+    volumes:
+    - data:/var/lib/registry
+    networks:
+    - proxy
+    restart: unless-stopped
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  data:
