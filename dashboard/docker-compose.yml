@@ -25,15 +25,9 @@ services:
       GF_USERS_ALLOW_SIGN_UP: "false"
 
   prometheus:
-    image: prom/prometheus:v2.1.0
+    image: registry.lukemilius.com/prometheus
     volumes:
     - prom_data:/prometheus
-    - ./prometheus/:/etc/prometheus
-    command:
-    - '--config.file=/etc/prometheus/prometheus.yml'
-    - '--storage.tsdb.path=/prometheus'
-    - '--web.console.libraries=/usr/share/prometheus/console_libraries'
-    - '--web.console.templates=/usr/share/prometheus/consoles'
     expose:
     - 9090
     depends_on:
