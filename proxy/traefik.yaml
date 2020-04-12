@@ -55,12 +55,24 @@ http:
       rule: "Host(`controller.lukemilius.com`)"
       tls: {}
       service: controller
+    octopi:
+      entryPoints:
+      - websecure
+      middlewares:
+      - tfa-verify@docker
+      rule: "Host(`octopi.lukemilius.com`)"
+      tls: {}
+      service: octopi
 
   services:
     controller:
       loadBalancer:
         servers:
         - url: "https://unifi.lukemilius.com:8443"
+    octopi:
+      loadBalancer:
+        servers:
+        - url: "http://octopi.milius.home"
 
   middlewares:
     https_redirect:
