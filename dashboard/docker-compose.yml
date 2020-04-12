@@ -55,17 +55,14 @@ services:
 
 
   alertmanager:
-    image: prom/alertmanager
+    image: registry.lukemilius.com/alertmanager
     expose:
     - 9093
-    volumes:
-    - ./alertmanager/:/etc/alertmanager/
     networks:
     - metrics
+    volumes:
+    - alert_data:/alertmanager
     restart: unless-stopped
-    command:
-    - '--config.file=/etc/alertmanager/config.yml'
-    - '--storage.path=/alertmanager'
 
   cadvisor:
     image: google/cadvisor
@@ -91,3 +88,4 @@ volumes:
   data:
   config:
   prom_data:
+  alert_data:
