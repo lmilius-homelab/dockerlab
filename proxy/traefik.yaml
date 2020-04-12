@@ -83,7 +83,8 @@ http:
       forwardAuth:
         address: "http://forward-auth:4181"
         trustForwardHeader: true
-        authResponseHeaders: X-Forwarded-User
+        authResponseHeaders: 
+        - X-Forwarded-User
     internal_only:
       ipWhiteList:
         sourceRange:
