@@ -6,7 +6,7 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.grafana.entrypoints=websecure"
     - "traefik.http.routers.grafana.rule=Host(`dashboard.lukemilius.com`)"
-    - "traefik.http.routers.grafana.middlewares=tfa-verify"
+    - "traefik.http.routers.grafana.middlewares=tfa_verify@file"
     - "traefik.http.routers.grafana.tls=true"
     - "traefik.docker.network=proxy"
     expose:

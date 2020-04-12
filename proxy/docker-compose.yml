@@ -11,7 +11,7 @@ services:
     - "traefik.http.routers.traefik.tls.domains[0].main=lukemilius.com"
     - "traefik.http.routers.traefik.tls.domains[0].sans=*.lukemilius.com"
     - "traefik.http.routers.traefik.service=api@internal"
-    - "traefik.http.routers.traefik.middlewares=tfa-verify"
+    - "traefik.http.routers.traefik.middlewares=tfa_verify@file"
     ports:
     - 80:80
     - 443:443
@@ -38,10 +38,7 @@ services:
     - "traefik.http.routers.forward-auth.entrypoints=websecure"
     - "traefik.http.routers.forward-auth.rule=Host(`auth.lukemilius.com`)"
     - "traefik.http.routers.forward-auth.tls=true"
-    - "traefik.http.middlewares.tfa-verify.forwardAuth.address=http://forward-auth:4181"
-    - "traefik.http.middlewares.tfa-verify.forwardAuth.trustForwardHeader=true"
-    - "traefik.http.middlewares.tfa-verify.forwardAuth.authResponseHeaders=X-Forwarded-User"
-    - "traefik.http.routers.forward-auth.middlewares=tfa-verify"
+    - "traefik.http.routers.forward-auth.middlewares=tfa_verify@file"
     environment:
       COOKIE_DOMAIN: lukemilius.com
       AUTH_HOST: auth.lukemilius.com

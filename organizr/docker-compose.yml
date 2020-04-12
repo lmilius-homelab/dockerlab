@@ -14,7 +14,7 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.organizr.entrypoints=websecure"
     - "traefik.http.routers.organizr.rule=Host(`panel.lukemilius.com`)"
-    - "traefik.http.routers.organizr.middlewares=tfa-verify"
+    - "traefik.http.routers.organizr.middlewares=tfa_verify@file"
     - "traefik.http.routers.organizr.tls=true"
     restart: unless-stopped
     networks:

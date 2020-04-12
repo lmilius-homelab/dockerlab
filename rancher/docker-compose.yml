@@ -6,7 +6,7 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.rancher.entrypoints=websecure"
     - "traefik.http.routers.rancher.rule=Host(`rancher.lukemilius.com`)"
-    - "traefik.http.routers.rancher.middlewares=tfa-verify"
+    - "traefik.http.routers.rancher.middlewares=tfa_verify@file"
     - "traefik.http.routers.rancher.tls=true"
     - "traefik.docker.network=proxy"
     - "traefik.http.routers.rancher-internal.entrypoints=websecure"

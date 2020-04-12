@@ -51,7 +51,7 @@ http:
       entryPoints:
         - websecure
       middlewares:
-        - tfa-verify@docker
+        - tfa_verify@file
       rule: "Host(`controller.lukemilius.com`)"
       tls: {}
       service: controller
@@ -59,7 +59,7 @@ http:
       entryPoints:
       - websecure
       middlewares:
-      - tfa-verify@docker
+      - tfa_verify@file
       rule: "Host(`octopi.lukemilius.com`)"
       tls: {}
       service: octopi
@@ -79,6 +79,11 @@ http:
       redirectScheme:
         scheme: https
         permanent: true
+    tfa_verify:
+      forwardAuth:
+        address: "http://forward-auth:4181"
+        trustForwardHeader: true
+        authResponseHeaders: X-Forwarded-User
     internal_only:
       ipWhiteList:
         sourceRange:
