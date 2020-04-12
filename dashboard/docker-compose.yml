@@ -25,7 +25,7 @@ services:
       GF_USERS_ALLOW_SIGN_UP: "false"
 
   prometheus:
-    image: registry.lukemilius.com/prometheus
+    image: registry.lukemilius.com/prometheus:latest
     volumes:
     - prom_data:/prometheus
     expose:
