@@ -15,6 +15,12 @@ providers:
 serversTransport:
   insecureSkipVerify: true
 
+metrics:
+  influxDB:
+    address: influxdb.lukemilius.com
+    protocol: http
+    database: influxdb
+
 entrypoints:
   web:
     address: ":80"
