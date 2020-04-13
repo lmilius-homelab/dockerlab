@@ -35,10 +35,9 @@ services:
     - "traefik.http.routers.influxdb.service=influxdb"
     - "traefik.http.services.influxdb.loadbalancer.server.port=8086"
     - "traefik.docker.network=proxy"
-    - "traefik.http.routers.graphite.entrypoints=websecure"
+    - "traefik.http.routers.graphite.entrypoints=graphite"
     - "traefik.http.routers.graphite.rule=Host(`graphite.lukemilius.com`)"
     - "traefik.http.routers.graphite.middlewares=internal_only@file"
-    - "traefik.http.routers.graphite.tls=true"
     - "traefik.http.routers.graphite.service=graphite"
     - "traefik.http.services.graphite.loadbalancer.server.port=2003"
     expose:
