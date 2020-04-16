@@ -6,9 +6,10 @@ services:
       - data:/var/lib/mysql
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.mariadb.entrypoints=mysql"
-    - "traefik.http.routers.mariadb.rule=Host(`mariadb.lukemilius.com`)"
-    - "traefik.http.routers.mariadb.middlewares=internal_only@file"
+    - "traefik.tcp.routers.mariadb.entrypoints=mysql"
+    - "traefik.tcp.routers.mariadb.rule=HostSNI(`mariadb.lukemilius.com`)"
+    - "traefik.tcp.routers.mariadb.middlewares=internal_only@file"
+    - "traefik.tcp.routers.mariadb.tls=true"
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
