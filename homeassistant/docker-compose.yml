@@ -8,7 +8,6 @@ services:
     - "traefik.enable=true"
     - "traefik.tcp.routers.mariadb.entrypoints=mysql"
     - "traefik.tcp.routers.mariadb.rule=HostSNI(`mariadb.lukemilius.com`)"
-    - "traefik.tcp.routers.mariadb.middlewares=internal_only@file"
     - "traefik.tcp.routers.mariadb.tls=true"
     restart: unless-stopped
     environment:
