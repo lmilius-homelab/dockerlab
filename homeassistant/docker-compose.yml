@@ -9,7 +9,6 @@ services:
     - "traefik.http.routers.mariadb.entrypoints=mysql"
     - "traefik.http.routers.mariadb.rule=Host(`mariadb.lukemilius.com`)"
     - "traefik.http.routers.mariadb.middlewares=internal_only@file"
-    - "traefik.http.routers.mariadb.tls=true"
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
