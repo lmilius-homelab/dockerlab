@@ -6,10 +6,10 @@ services:
       - data:/var/lib/mysql
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.organizr.entrypoints=websecure"
-    - "traefik.http.routers.organizr.rule=Host(`mariadb.lukemilius.com`)"
-    - "traefik.http.routers.organizr.middlewares=internal_only@file"
-    - "traefik.http.routers.organizr.tls=true"
+    - "traefik.http.routers.mariadb.entrypoints=websecure"
+    - "traefik.http.routers.mariadb.rule=Host(`mariadb.lukemilius.com`)"
+    - "traefik.http.routers.mariadb.middlewares=internal_only@file"
+    - "traefik.http.routers.mariadb.tls=true"
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -23,10 +23,10 @@ services:
     image: adminer
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.organizr.entrypoints=websecure"
-    - "traefik.http.routers.organizr.rule=Host(`mdbadmin.lukemilius.com`)"
-    - "traefik.http.routers.organizr.middlewares=internal_only@file"
-    - "traefik.http.routers.organizr.tls=true"
+    - "traefik.http.routers.mdbadmin.entrypoints=websecure"
+    - "traefik.http.routers.mdbadmin.rule=Host(`mdbadmin.lukemilius.com`)"
+    - "traefik.http.routers.mdbadmin.middlewares=internal_only@file"
+    - "traefik.http.routers.mdbadmin.tls=true"
     restart: unless-stopped
     expose:
     - 8080
