@@ -6,7 +6,7 @@ services:
       - data:/var/lib/mysql
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.mariadb.entrypoints=websecure"
+    - "traefik.http.routers.mariadb.entrypoints=mysql"
     - "traefik.http.routers.mariadb.rule=Host(`mariadb.lukemilius.com`)"
     - "traefik.http.routers.mariadb.middlewares=internal_only@file"
     - "traefik.http.routers.mariadb.tls=true"

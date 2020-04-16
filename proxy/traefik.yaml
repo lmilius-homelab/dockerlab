@@ -28,6 +28,8 @@ entrypoints:
     address: ":443"
   graphite:
     address: ":2003"
+  mysql:
+    address: ":3306"
 
 
 certificatesResolvers:
