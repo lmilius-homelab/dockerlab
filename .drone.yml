@@ -273,3 +273,38 @@ volumes:
 - name: dockersock
   host:
     path: /var/run/docker.sock
+
+
+---
+kind: pipeline
+name: homeassistant
+type: docker
+
+trigger:
+  branch:
+  - master
+  event:
+  - push
+
+steps:
+- name: Deploy
+  image: docker/compose
+  commands:
+  - cd homeassistant
+  - docker-compose up -d
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+  when:
+    event:
+    - push
+  environment:
+    MYSQL_ROOT_PASSWORD:
+      from_secret: mysql_root_password
+    HA_USER_PASSWORD:
+      from_secret: ha_user_password
+
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock

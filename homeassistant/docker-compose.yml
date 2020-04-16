@@ -1,0 +1,41 @@
+version: "2"
+services:
+  mariadb:
+    image: mariadb:10.4
+    volumes:
+      - data:/var/lib/mysql
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.organizr.entrypoints=websecure"
+    - "traefik.http.routers.organizr.rule=Host(`mariadb.lukemilius.com`)"
+    - "traefik.http.routers.organizr.middlewares=internal_only@file"
+    - "traefik.http.routers.organizr.tls=true"
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: homeassistant
+      MYSQL_USER: homeassistant
+      MYSQL_PASSWORD: ${HA_USER_PASSWORD}
+    networks:
+    - proxy
+
+  mdbadmin:
+    image: adminer
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.organizr.entrypoints=websecure"
+    - "traefik.http.routers.organizr.rule=Host(`mdbadmin.lukemilius.com`)"
+    - "traefik.http.routers.organizr.middlewares=internal_only@file"
+    - "traefik.http.routers.organizr.tls=true"
+    restart: unless-stopped
+    expose:
+    - 8080
+    networks:
+    - proxy
+
+volumes:
+  data:
+
+networks:
+  proxy:
+    external: true
