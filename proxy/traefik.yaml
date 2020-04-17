@@ -69,6 +69,14 @@ http:
       rule: "Host(`octopi.lukemilius.com`)"
       tls: {}
       service: octopi
+    homeassistant:
+      entryPoints:
+      - websecure
+      middlewares:
+      - tfa_verify@file
+      rule: "Host(`ha.lukemilius.com`)"
+      tls: {}
+      service: homeassistant
 
   services:
     controller:
@@ -79,6 +87,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://octopi.milius.home"
+    homeassistant:
+      loadBalancer:
+        servers:
+        - url: "http://homeassistant.milius.home:8123"
 
   middlewares:
     https_redirect:
