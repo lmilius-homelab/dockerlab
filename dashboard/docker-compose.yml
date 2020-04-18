@@ -104,6 +104,12 @@ services:
     - metrics
     restart: unless-stopped
 
+  telegraf:
+    image: registry.lukemilius.com/telegraf
+    networks:
+    - metrics
+    restart: unless-stopped
+
 
 
 networks:
