@@ -49,6 +49,7 @@ services:
     - metrics
     environment:
       INFLUXDB_DB: influxdb
+    restart: unless-stopped
 
   prometheus:
     image: registry.lukemilius.com/prometheus:latest
