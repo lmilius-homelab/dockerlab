@@ -15,3 +15,5 @@ You will need to fill in the values for the secrets. Finally, run the following 
 ```shell script
 docker-compose up -d
 ```
+
+
