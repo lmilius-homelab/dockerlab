@@ -71,6 +71,14 @@ http:
       rule: "Host(`octopi.lukemilius.com`)"
       tls: {}
       service: octopi
+    pihole:
+      entryPoints:
+      - websecure
+      middlewares:
+      - tfa_verify@file
+      rule: "Host(`pihole.lukemilius.com`)"
+      tls: {}
+      service: pihole
     homeassistant:
       entryPoints:
       - websecure
@@ -89,6 +97,10 @@ http:
       loadBalancer:
         servers:
         - url: "http://octopi.milius.home"
+    pihole:
+      loadBalancer:
+        servers:
+        - url: "http://pihole.milius.home/admin"
     homeassistant:
       loadBalancer:
         servers:
