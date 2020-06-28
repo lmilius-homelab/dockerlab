@@ -100,7 +100,7 @@ http:
     pihole:
       loadBalancer:
         servers:
-        - url: "http://pihole.milius.home/admin"
+        - url: "http://pihole.milius.home"
     homeassistant:
       loadBalancer:
         servers:
