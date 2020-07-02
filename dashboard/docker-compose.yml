@@ -2,13 +2,6 @@ version: '3.6'
 services:
   grafana:
     image: grafana/grafana
-    labels:
-    - "traefik.enable=true"
-    - "traefik.http.routers.grafana.entrypoints=websecure"
-    - "traefik.http.routers.grafana.rule=Host(`dashboard.lukemilius.com`)"
-    - "traefik.http.routers.grafana.middlewares=tfa_verify@file"
-    - "traefik.http.routers.grafana.tls=true"
-    - "traefik.docker.network=proxy-overlay"
 #    expose:
 #    - 3000
     volumes:
@@ -21,6 +14,13 @@ services:
     - prometheus
 #    restart: unless-stopped
     deploy:
+      labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
+      - "traefik.http.routers.grafana.rule=Host(`dashboard.lukemilius.com`)"
+      - "traefik.http.routers.grafana.middlewares=tfa_verify@file"
+      - "traefik.http.routers.grafana.tls=true"
+      - "traefik.docker.network=proxy-overlay"
       restart_policy:
         condition: on-failure
     environment:
@@ -30,19 +30,6 @@ services:
 
   influxdb:
     image: registry.lukemilius.com/influxdb
-    labels:
-    - "traefik.enable=true"
-    - "traefik.http.routers.influxdb.entrypoints=websecure"
-    - "traefik.http.routers.influxdb.rule=Host(`influxdb.lukemilius.com`)"
-    - "traefik.http.routers.influxdb.middlewares=internal_only@file"
-    - "traefik.http.routers.influxdb.tls=true"
-    - "traefik.http.routers.influxdb.service=influxdb"
-    - "traefik.http.services.influxdb.loadbalancer.server.port=8086"
-    - "traefik.docker.network=proxy-overlay"
-    - "traefik.tcp.routers.graphite.entrypoints=graphite"
-    - "traefik.tcp.routers.graphite.rule=HostSNI(`*`)"
-    - "traefik.tcp.routers.graphite.service=graphite"
-    - "traefik.tcp.services.graphite.loadbalancer.server.port=2003"
 #    expose:
 #    - 2003
 #    - 8086
@@ -55,6 +42,19 @@ services:
       INFLUXDB_DB: influxdb
 #    restart: unless-stopped
     deploy:
+      labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.influxdb.entrypoints=websecure"
+      - "traefik.http.routers.influxdb.rule=Host(`influxdb.lukemilius.com`)"
+      - "traefik.http.routers.influxdb.middlewares=internal_only@file"
+      - "traefik.http.routers.influxdb.tls=true"
+      - "traefik.http.routers.influxdb.service=influxdb"
+      - "traefik.http.services.influxdb.loadbalancer.server.port=8086"
+      - "traefik.docker.network=proxy-overlay"
+      - "traefik.tcp.routers.graphite.entrypoints=graphite"
+      - "traefik.tcp.routers.graphite.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.graphite.service=graphite"
+      - "traefik.tcp.services.graphite.loadbalancer.server.port=2003"
       restart_policy:
         condition: on-failure
 
