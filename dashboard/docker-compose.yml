@@ -8,7 +8,7 @@ services:
     - "traefik.http.routers.grafana.rule=Host(`dashboard.lukemilius.com`)"
     - "traefik.http.routers.grafana.middlewares=tfa_verify@file"
     - "traefik.http.routers.grafana.tls=true"
-    - "traefik.docker.network=proxy"
+    - "traefik.docker.network=proxy-overlay"
 #    expose:
 #    - 3000
     volumes:
@@ -38,7 +38,7 @@ services:
     - "traefik.http.routers.influxdb.tls=true"
     - "traefik.http.routers.influxdb.service=influxdb"
     - "traefik.http.services.influxdb.loadbalancer.server.port=8086"
-    - "traefik.docker.network=proxy"
+    - "traefik.docker.network=proxy-overlay"
     - "traefik.tcp.routers.graphite.entrypoints=graphite"
     - "traefik.tcp.routers.graphite.rule=HostSNI(`*`)"
     - "traefik.tcp.routers.graphite.service=graphite"
