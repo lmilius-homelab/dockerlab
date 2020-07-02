@@ -11,6 +11,7 @@ providers:
     watch: true
   docker:
     exposedByDefault: false
+    swarmMode: true
 
 serversTransport:
   insecureSkipVerify: true

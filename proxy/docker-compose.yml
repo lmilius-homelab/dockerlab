@@ -23,6 +23,7 @@ services:
     - letsencrypt:/letsencrypt
     networks:
     - proxy
+    - proxy-overlay
     restart: unless-stopped
     environment:
       CF_API_EMAIL: ${CF_API_EMAIL}
@@ -52,6 +53,8 @@ services:
 
 networks:
   proxy:
+    external: true
+  proxy-overlay:
     external: true
 
 volumes:

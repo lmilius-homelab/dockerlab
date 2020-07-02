@@ -9,17 +9,20 @@ services:
     - "traefik.http.routers.grafana.middlewares=tfa_verify@file"
     - "traefik.http.routers.grafana.tls=true"
     - "traefik.docker.network=proxy"
-    expose:
-    - 3000
+#    expose:
+#    - 3000
     volumes:
     - data:/var/lib/grafana
     - config:/etc/grafana
     networks:
-    - proxy
+    - proxy-overlay
     - metrics
     depends_on:
     - prometheus
-    restart: unless-stopped
+#    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
     environment:
       GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD}
       GF_USERS_ALLOW_SIGN_UP: "false"
@@ -40,29 +43,35 @@ services:
     - "traefik.tcp.routers.graphite.rule=HostSNI(`*`)"
     - "traefik.tcp.routers.graphite.service=graphite"
     - "traefik.tcp.services.graphite.loadbalancer.server.port=2003"
-    expose:
-    - 2003
-    - 8086
+#    expose:
+#    - 2003
+#    - 8086
     volumes:
     - influxdb_data:/var/lib/influxdb
     networks:
-    - proxy
+    - proxy-overlay
     - metrics
     environment:
       INFLUXDB_DB: influxdb
-    restart: unless-stopped
+#    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
 
   prometheus:
     image: registry.lukemilius.com/prometheus:latest
     volumes:
     - prom_data:/prometheus
-    expose:
-    - 9090
+#    expose:
+#    - 9090
     depends_on:
     - cadvisor
     networks:
     - metrics
-    restart: unless-stopped
+#    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
 
   node-exporter:
     image: prom/node-exporter
@@ -75,22 +84,28 @@ services:
     - '--path.sysfs=/host/sys'
     - '--collector.filesystem.ignored-mount-points'
     - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
-    expose:
-    - 9100
+#    expose:
+#    - 9100
     networks:
     - metrics
-    restart: unless-stopped
+#    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
 
 
   alertmanager:
     image: registry.lukemilius.com/alertmanager
-    expose:
-    - 9093
+#    expose:
+#    - 9093
     networks:
     - metrics
     volumes:
     - alert_data:/alertmanager
-    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+#    restart: unless-stopped
 
   cadvisor:
     image: google/cadvisor
@@ -99,23 +114,29 @@ services:
     - /var/run:/var/run:rw
     - /sys:/sys:ro
     - /var/lib/docker/:/var/lib/docker:ro
-    expose:
-    - 8080
+#    expose:
+#    - 8080
     networks:
     - metrics
-    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
+#    restart: unless-stopped
 
   telegraf:
     image: registry.lukemilius.com/telegraf
     networks:
     - metrics
-    restart: unless-stopped
+#    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: on-failure
 
 
 
 networks:
   metrics:
-  proxy:
+  proxy-overlay:
     external: true
 
 volumes:
