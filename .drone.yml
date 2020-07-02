@@ -135,7 +135,8 @@ steps:
   image: docker/compose
   commands:
   - cd dashboard
-  - docker-compose up -d
+  #- docker-compose up -d
+  - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
