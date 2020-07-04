@@ -6,7 +6,7 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.bitwarden.entrypoints=websecure"
     - "traefik.http.routers.bitwarden.rule=Host(`bitwarden.lukemilius.com`)"
-    - "traefik.http.routers.bitwarden.middlewares=tfa_verify@file"
+    - "traefik.http.routers.bitwarden.middlewares=internal_only@file"
     - "traefik.http.routers.bitwarden.tls=true"
     expose:
     - 80
