@@ -354,6 +354,9 @@ steps:
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
+  environment:
+    BITWARDEN_ADMIN:
+      from_secret: bitwarden_admin_token
   when:
     event:
     - push

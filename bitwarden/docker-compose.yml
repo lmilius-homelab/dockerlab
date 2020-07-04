@@ -17,6 +17,7 @@ services:
     restart: unless-stopped
     environment:
       WEBSOCKET_ENABLED: "true"
+      ADMIN_TOKEN: ${BITWARDEN_ADMIN}
 
 networks:
   proxy-overlay:
