@@ -1,0 +1,27 @@
+version: '2.4'
+services:
+  bitwarden:
+    image: bitwardenrs/server:latest
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.bitwarden.entrypoints=websecure"
+    - "traefik.http.routers.bitwarden.rule=Host(`bitwarden.lukemilius.com`)"
+    - "traefik.http.routers.bitwarden.middlewares=internal_only@file"
+    - "traefik.http.routers.bitwarden.tls=true"
+    expose:
+    - 80
+    volumes:
+    - data:/data
+    networks:
+    - proxy-overlay
+    restart: unless-stopped
+    environment:
+      WEBSOCKET_ENABLED: "true"
+      ADMIN_TOKEN: ${BITWARDEN_ADMIN}
+
+networks:
+  proxy-overlay:
+    external: true
+
+volumes:
+  data:
