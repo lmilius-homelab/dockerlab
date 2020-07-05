@@ -17,9 +17,10 @@ services:
     - metrics
     depends_on:
     - prometheus
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: unless-stopped
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
     environment:
       GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD}
       GF_USERS_ALLOW_SIGN_UP: "false"
@@ -47,9 +48,10 @@ services:
     - metrics
     environment:
       INFLUXDB_DB: influxdb
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: unless-stopped
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
 
   prometheus:
     image: registry.lukemilius.com/prometheus:latest
@@ -59,9 +61,10 @@ services:
     - cadvisor
     networks:
     - metrics
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: unless-stopped
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
 
   node-exporter:
     image: prom/node-exporter
@@ -76,9 +79,10 @@ services:
     - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     networks:
     - metrics
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: unless-stopped
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
 
 
   alertmanager:
@@ -87,9 +91,10 @@ services:
     - metrics
     volumes:
     - alert_data:/alertmanager
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: unless-stopped
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
 
   cadvisor:
     image: google/cadvisor
@@ -100,25 +105,28 @@ services:
     - /var/lib/docker/:/var/lib/docker:ro
     networks:
     - metrics
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: unless-stopped
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
 
   telegraf:
     image: registry.lukemilius.com/telegraf
     networks:
     - metrics
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: unless-stopped
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
 
   speedtest:
     image: registry.lukemilius.com/speedtest:1
     networks:
     - metrics
-    deploy:
-      restart_policy:
-        condition: on-failure
+    restart: unless-stopped
+#    deploy:
+#      restart_policy:
+#        condition: on-failure
 
 networks:
   metrics:
