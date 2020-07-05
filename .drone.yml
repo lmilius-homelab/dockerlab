@@ -119,61 +119,61 @@ volumes:
     path: /var/run/docker.sock
 
 
-#---
-#kind: pipeline
-#name: dashboard
-#type: docker
-#
-#trigger:
-#  branch:
-#  - master
-#  event:
-#  - push
-#
-#steps:
-#- name: Deploy
-#  image: docker/compose
-#  commands:
-#  - cd dashboard
-#  #- docker-compose up -d
-#  - docker-compose down
-#  volumes:
-#  - name: dockersock
-#    path: /var/run/docker.sock
-#  when:
-#    event:
-#    - push
-#  environment:
-#    GF_SECURITY_ADMIN_PASSWORD:
-#      from_secret: admin_password
-#
-#volumes:
-#- name: dockersock
-#  host:
-#    path: /var/run/docker.sock
-#
-
 ---
 kind: pipeline
-type: docker
 name: dashboard
+type: docker
 
-depends_on:
-- portainer
+trigger:
+  branch:
+  - master
+  event:
+  - push
 
 steps:
-- name: deploy
-  image: lmilius/drone-portainer-deploy
-  settings:
-    url: https://portainer-int.lukemilius.com
-    username:
-      from_secret: portainer_username
-    password:
-      from_secret: portainer_password
-    endpoint: local
-    type: stack
-    stack_name: dashboard
-    stack_file: dashboard/docker-compose.yml
+- name: Deploy
+  image: docker/compose
+  commands:
+  - cd dashboard
+  - docker-compose up -d
+#  - docker-compose down
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+  when:
+    event:
+    - push
+  environment:
+    GF_SECURITY_ADMIN_PASSWORD:
+      from_secret: admin_password
+
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
+
+
+#---
+#kind: pipeline
+#type: docker
+#name: dashboard
+#
+#depends_on:
+#- portainer
+#
+#steps:
+#- name: deploy
+#  image: lmilius/drone-portainer-deploy
+#  settings:
+#    url: https://portainer-int.lukemilius.com
+#    username:
+#      from_secret: portainer_username
+#    password:
+#      from_secret: portainer_password
+#    endpoint: local
+#    type: stack
+#    stack_name: dashboard
+#    stack_file: dashboard/docker-compose.yml
 
 
 ---
