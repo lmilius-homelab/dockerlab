@@ -17,6 +17,8 @@ services:
     - 443:443
     - 2003:2003
     - 3306:3306
+    env_file:
+    - .env
     volumes:
     - /var/run/docker.sock:/var/run/docker.sock:ro
     - ./traefik.yaml:/etc/traefik/traefik.yaml
@@ -25,9 +27,6 @@ services:
     - proxy
     - proxy-overlay
     restart: unless-stopped
-    environment:
-      CF_API_EMAIL: ${CF_API_EMAIL}
-      CF_API_KEY: ${CF_API_KEY}
 
   forward-auth:
     image: thomseddon/traefik-forward-auth:2
@@ -42,13 +41,11 @@ services:
     - "traefik.http.routers.forward-auth.rule=Host(`auth.lukemilius.com`)"
     - "traefik.http.routers.forward-auth.tls=true"
     - "traefik.http.routers.forward-auth.middlewares=tfa_verify@file"
+    env_file:
+    - .env
     environment:
       COOKIE_DOMAIN: lukemilius.com
       AUTH_HOST: auth.lukemilius.com
-      WHITELIST: ${WHITELIST} # Whitelisted email addresses
-      SECRET: ${COOKIE_SECRET}
-      PROVIDERS_GOOGLE_CLIENT_ID: ${PROVIDERS_GOOGLE_CLIENT_ID}
-      PROVIDERS_GOOGLE_CLIENT_SECRET: ${PROVIDERS_GOOGLE_CLIENT_SECRET}
 #      LOG_LEVEL: debug
 
 networks:
