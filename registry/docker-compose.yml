@@ -6,7 +6,7 @@ services:
     - "traefik.enable=true"
     - "traefik.http.routers.reg-internal.entrypoints=websecure"
     - "traefik.http.routers.reg-internal.rule=Host(`registry.lukemilius.com`)"
-#     - "traefik.http.routers.reg-internal.middlewares=internal_only@file"
+    - "traefik.http.routers.reg-internal.middlewares=internal_only@file"
     - "traefik.http.routers.reg-internal.tls=true"
     expose:
     - 5000
