@@ -13,7 +13,7 @@ services:
     volumes:
     - data:/data
     networks:
-    - proxy-overlay
+    - proxy
     restart: unless-stopped
     environment:
       WEBSOCKET_ENABLED: "true"
