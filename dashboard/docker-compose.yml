@@ -59,6 +59,7 @@ services:
     - prom_data:/prometheus
     depends_on:
     - cadvisor
+    hostname: prometheus
     networks:
     - metrics
     restart: unless-stopped
@@ -79,6 +80,7 @@ services:
     - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     networks:
     - metrics
+    hostname: node-exporter
     restart: unless-stopped
 #    deploy:
 #      restart_policy:
