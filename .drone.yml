@@ -284,7 +284,7 @@ steps:
   image: docker/compose
   commands:
   - cd registry
-  - docker-compose up -d
+  - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -349,7 +349,7 @@ steps:
   image: docker/compose
   commands:
   - cd bitwarden
-  - docker-compose up -d
+  - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
