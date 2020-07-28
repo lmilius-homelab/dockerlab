@@ -14,7 +14,6 @@ steps:
   image: docker/compose
   commands:
   - cd whoami
-  #- docker-compose up -d
   - docker-compose down
   volumes:
   - name: dockersock
