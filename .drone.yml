@@ -14,7 +14,7 @@ steps:
   image: docker/compose
   commands:
   - cd whoami
-  - docker-compose down
+  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -44,7 +44,7 @@ steps:
   image: docker/compose
   commands:
   - cd portainer
-  - docker-compose down
+  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -74,7 +74,7 @@ steps:
   image: docker/compose
   commands:
   - cd watchtower
-  - docker-compose down
+  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -105,7 +105,7 @@ steps:
   image: docker/compose
   commands:
   - cd volumerize
-  - docker-compose down
+  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -135,7 +135,7 @@ steps:
   image: docker/compose
   commands:
   - cd dashboard
-  - docker-compose down
+  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -150,30 +150,6 @@ volumes:
 - name: dockersock
   host:
     path: /var/run/docker.sock
-
-
-#---
-#kind: pipeline
-#type: docker
-#name: dashboard
-#
-#depends_on:
-#- portainer
-#
-#steps:
-#- name: deploy
-#  image: lmilius/drone-portainer-deploy
-#  settings:
-#    url: https://portainer-int.lukemilius.com
-#    username:
-#      from_secret: portainer_username
-#    password:
-#      from_secret: portainer_password
-#    endpoint: local
-#    type: stack
-#    stack_name: dashboard
-#    stack_file: dashboard/docker-compose.yml
-
 
 ---
 kind: pipeline
@@ -191,7 +167,7 @@ steps:
   image: docker/compose
   commands:
   - cd organizr
-  - docker-compose down
+  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -221,7 +197,7 @@ steps:
   image: docker/compose
   commands:
   - cd ddns
-  - docker-compose down
+  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -236,37 +212,6 @@ volumes:
 - name: dockersock
   host:
     path: /var/run/docker.sock
-
-
-#---
-#kind: pipeline
-#name: rancher
-#type: docker
-#
-#trigger:
-#  branch:
-#  - master
-#  event:
-#  - push
-#
-#steps:
-#- name: Deploy
-#  image: docker/compose
-#  commands:
-#  - cd rancher
-#  - docker-compose up -d
-#  volumes:
-#  - name: dockersock
-#    path: /var/run/docker.sock
-#  when:
-#    event:
-#    - push
-#
-#volumes:
-#- name: dockersock
-#  host:
-#    path: /var/run/docker.sock
-
 
 ---
 kind: pipeline
@@ -314,7 +259,7 @@ steps:
   image: docker/compose
   commands:
   - cd homeassistant
-  - docker-compose down
+  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -349,7 +294,7 @@ steps:
   image: docker/compose
   commands:
   - cd bitwarden
-  - docker-compose down
+  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
