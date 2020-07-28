@@ -25,7 +25,6 @@ services:
     - letsencrypt:/letsencrypt
     networks:
     - proxy
-    - proxy-overlay
     restart: unless-stopped
 
   forward-auth:
@@ -50,8 +49,6 @@ services:
 
 networks:
   proxy:
-    external: true
-  proxy-overlay:
     external: true
 
 volumes:
