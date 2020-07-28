@@ -14,7 +14,8 @@ steps:
   image: docker/compose
   commands:
   - cd whoami
-  - docker-compose up -d
+#   - docker-compose up -d
+  - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -44,7 +45,8 @@ steps:
   image: docker/compose
   commands:
   - cd portainer
-  - docker-compose up -d
+#   - docker-compose up -d
+  - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -74,7 +76,8 @@ steps:
   image: docker/compose
   commands:
   - cd watchtower
-  - docker-compose up -d
+#   - docker-compose up -d
+  - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -105,7 +108,8 @@ steps:
   image: docker/compose
   commands:
   - cd volumerize
-  - docker-compose up -d
+#   - docker-compose up -d
+  - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -135,8 +139,8 @@ steps:
   image: docker/compose
   commands:
   - cd dashboard
-  - docker-compose up -d
-#  - docker-compose down
+#   - docker-compose up -d
+ - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -192,7 +196,8 @@ steps:
   image: docker/compose
   commands:
   - cd organizr
-  - docker-compose up -d
+#   - docker-compose up -d
+  - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -222,7 +227,8 @@ steps:
   image: docker/compose
   commands:
   - cd ddns
-  - docker-compose up -d
+#   - docker-compose up -d
+  - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -315,7 +321,8 @@ steps:
   image: docker/compose
   commands:
   - cd homeassistant
-  - docker-compose up -d
+#   - docker-compose up -d
+  - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
