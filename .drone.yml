@@ -18,7 +18,7 @@ steps:
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
-  when:
+  when:``
     event:
     - push
 
@@ -135,7 +135,7 @@ steps:
   image: docker/compose
   commands:
   - cd dashboard
-  - docker-compose up -d
+  - docker-compose up -d --pull
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
