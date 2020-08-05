@@ -26,6 +26,7 @@ services:
       GF_USERS_ALLOW_SIGN_UP: "false"
       GF_PANELS_DISABLE_SANITIZE_HTML: "true"
 
+
   influxdb:
     image: registry.lukemilius.com/influxdb
     labels:
@@ -49,9 +50,7 @@ services:
     environment:
       INFLUXDB_DB: influxdb
     restart: unless-stopped
-#    deploy:
-#      restart_policy:
-#        condition: on-failure
+
 
   prometheus:
     image: registry.lukemilius.com/prometheus:latest
@@ -59,32 +58,22 @@ services:
     - prom_data:/prometheus
     depends_on:
     - cadvisor
-    hostname: prometheus
     networks:
     - metrics
     restart: unless-stopped
-#    deploy:
-#      restart_policy:
-#        condition: on-failure
+
 
   node-exporter:
     image: prom/node-exporter
     volumes:
-    - /proc:/host/proc:ro
-    - /sys:/host/sys:ro
-    - /:/rootfs:ro
+    - /:/host:ro,rslave
     command:
-    - '--path.procfs=/host/proc'
-    - '--path.sysfs=/host/sys'
-    - '--collector.filesystem.ignored-mount-points'
+    - “--path.rootfs=/host”
+    - “--collector.filesystem.ignored-mount-points”
     - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
     networks:
     - metrics
-    hostname: node-exporter
     restart: unless-stopped
-#    deploy:
-#      restart_policy:
-#        condition: on-failure
 
 
   alertmanager:
