@@ -111,7 +111,7 @@ services:
 #        condition: on-failure
 
   speedtest:
-    image: registry.lukemilius.com/speedtest:1
+    image: registry.lukemilius.com/speedtest:1.0
     networks:
     - metrics
     restart: unless-stopped
