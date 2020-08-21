@@ -93,7 +93,7 @@ http:
     controller:
       loadBalancer:
         servers:
-        - url: "https://unifi.lukemilius.com:8443"
+        - url: "https://192.168.1.5:8443"
     octopi:
       loadBalancer:
         servers:
