@@ -69,23 +69,23 @@ trigger:
   event:
   - push
 
-steps:
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd watchtower
-  - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  when:
-    event:
-    - push
+# steps:
+# - name: Deploy
+#   image: docker/compose
+#   commands:
+#   - cd watchtower
+#   - docker-compose up -d
+#   volumes:
+#   - name: dockersock
+#     path: /var/run/docker.sock
+#   when:
+#     event:
+#     - push
 
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
+# volumes:
+# - name: dockersock
+#   host:
+#     path: /var/run/docker.sock
 
 
 
