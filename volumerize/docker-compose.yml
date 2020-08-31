@@ -10,8 +10,14 @@ services:
     - drone_data:/source/drone_data:ro
     - dashboard_data:/source/dashboard_data:ro
     - dashboard_config:/source/dashboard_config:ro
+    - dashboard_influxdb_data:/source/dashboard_influxdb_data:ro
+    - dashboard_prom_data:/source/dashboard_prom_data:ro
     - organizr_config:/source/organizr_config:ro
-
+    - bitwarden_data:/source/bitwarden_data:ro
+    - pihole_dnsmasq:/source/pihole_dnsmasq:ro
+    - pihole_etc:/source/pihole_etc:ro
+    - primpol_db:/source/primpol_db:ro
+    - registry_data:/source/registry_data:ro
     - cache:/volumerize-cache
     - /mnt/cont_data/backups:/backup
     - /var/run/docker.sock:/var/run/docker.sock
@@ -33,6 +39,21 @@ volumes:
     external: true
   dashboard_config:
     external: true
+  dashboard_influxdb_data:
+    external: true
+  dashboard_prom_data:
+    external: true
   organizr_config:
     external: true
+  bitwarden_data:
+    external: true
+  pihole_dnsmasq:
+    external: true
+  pihole_etc:
+    external: true
+  primpol_db:
+    external: true
+  registry_data:
+    external: true
+  
 
