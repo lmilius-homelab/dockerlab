@@ -14,8 +14,6 @@ services:
     - dashboard_prom_data:/source/dashboard_prom_data:ro
     - organizr_config:/source/organizr_config:ro
     - bitwarden_data:/source/bitwarden_data:ro
-    - pihole_dnsmasq:/source/pihole_dnsmasq:ro
-    - pihole_etc:/source/pihole_etc:ro
     - primpol_db:/source/primpol_db:ro
     - registry_data:/source/registry_data:ro
     - cache:/volumerize-cache
