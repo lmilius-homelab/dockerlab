@@ -47,10 +47,6 @@ volumes:
     external: true
   bitwarden_data:
     external: true
-  pihole_dnsmasq:
-    external: true
-  pihole_etc:
-    external: true
   primpol_db:
     external: true
   registry_data:
