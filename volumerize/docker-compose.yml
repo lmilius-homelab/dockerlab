@@ -25,6 +25,7 @@ services:
     environment:
       VOLUMERIZE_SOURCE: /source
       VOLUMERIZE_TARGET: file:///backup
+      VOLUMERIZE_CONTAINERS: "bitwarden_bitwarden_1 pihole_pihole_1 primpol_db_1 primpol_primpol_1 homeassistant_mariadb_1 organizr_organizr_1 dashboard_grafana_1 homeassistant_mdbadmin_1 runner-01 dashboard_speedtest_1 dashboard_node-exporter_1 dashboard_prometheus_1 dashboard_alertmanager_1 dashboard_telegraf_1 dashboard_influxdb_1 dashboard_cadvisor_1 portainer_portainer_1 ddns_ddns_1 registry_registry_1 drone_drone_1 proxy_traefik_1 proxy_forward-auth_1"
 
 
 volumes:
