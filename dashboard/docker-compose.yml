@@ -147,7 +147,7 @@ services:
     volumes:
       - graylog_journal:/usr/share/graylog/data/journal
     depends_on:
-      - mongodb
+      - mongo
       - elasticsearch
     labels:
       - "traefik.enable=true"
