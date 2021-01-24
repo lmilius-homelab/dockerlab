@@ -29,12 +29,12 @@ services:
     image: registry.lukemilius.com/influxdb
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.influxdb.entrypoints=websecure"
-    - "traefik.http.routers.influxdb.rule=Host(`influxdb.lukemilius.com`)"
-    - "traefik.http.routers.influxdb.middlewares=internal_only@file"
-    - "traefik.http.routers.influxdb.tls=true"
-    - "traefik.http.routers.influxdb.service=influxdb"
-    - "traefik.http.services.influxdb.loadbalancer.server.port=8086"
+#    - "traefik.http.routers.influxdb.entrypoints=websecure"
+#    - "traefik.http.routers.influxdb.rule=Host(`influxdb.lukemilius.com`)"
+#    - "traefik.http.routers.influxdb.middlewares=internal_only@file"
+#    - "traefik.http.routers.influxdb.tls=true"
+#    - "traefik.http.routers.influxdb.service=influxdb"
+#    - "traefik.http.services.influxdb.loadbalancer.server.port=8086"
     - "traefik.docker.network=proxy"
     - "traefik.tcp.routers.influxdb_tcp.entrypoints=influxdb"
     - "traefik.tcp.routers.influxdb_tcp.rule=HostSNI(`*`)"
