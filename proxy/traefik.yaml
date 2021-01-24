@@ -32,13 +32,17 @@ entrypoints:
   mysql:
     address: ":3306"
   netflow:
-    address: ":2055"
+    address: ":2055/udp"
   syslog_feed:
-    address: ":5442"
+    address: ":5442/udp"
   syslog:
     address: ":1514"
   gelf:
     address: ":12201"
+  syslog_udp:
+    address: ":1514/udp"
+  gelf_udp:
+    address: ":12201/udp"
 
 
 
@@ -50,7 +54,7 @@ certificatesResolvers:
         resolvers:
         - "1.1.1.1:53"
       # When doing testing, uncomment the below line to prevent hitting LetsEncrypt limits
-      #caserver: https://acme-staging-v02.api.letsencrypt.org/directory
+      caserver: https://acme-staging-v02.api.letsencrypt.org/directory
       email: info@lukemilius.com
       storage: /letsencrypt/acme.json
 
