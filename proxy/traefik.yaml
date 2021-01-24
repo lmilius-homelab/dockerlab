@@ -31,6 +31,15 @@ entrypoints:
     address: ":2003"
   mysql:
     address: ":3306"
+  netflow:
+    address: ":2055"
+  syslog_feed:
+    address: ":5442"
+  syslog:
+    address: ":1514"
+  gelf:
+    address: ":12201"
+
 
 
 certificatesResolvers:
