@@ -143,7 +143,7 @@ services:
 
   # Graylog: https://hub.docker.com/r/graylog/graylog/
   graylog:
-    image: graylog?
+    image: registry.lukemilius.com/graylog
     volumes:
       - graylog_journal:/usr/share/graylog/data/journal
     depends_on:
@@ -230,4 +230,4 @@ volumes:
   influxdb_data:
   es_data:
   mongo_data:
-
+  graylog_journal:
