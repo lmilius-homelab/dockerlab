@@ -173,7 +173,7 @@ services:
       - "traefik.udp.routers.syslog_udp.service=syslog_udp"
       - "traefik.udp.services.syslog_udp.loadbalancer.server.port=1514"
       - "traefik.tcp.routers.syslog_tcp.entrypoints=syslog"
-#      - "traefik.tcp.routers.syslog_tcp.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.syslog_tcp.rule=HostSNI(`*`)"
       - "traefik.tcp.routers.syslog_tcp.service=syslog_tcp"
       - "traefik.tcp.services.syslog_tcp.loadbalancer.server.port=1514"
       - "traefik.udp.routers.gelf_udp.entrypoints=gelf_udp"
@@ -181,7 +181,7 @@ services:
       - "traefik.udp.routers.gelf_udp.service=gelf_udp"
       - "traefik.udp.services.gelf_udp.loadbalancer.server.port=12201"
       - "traefik.tcp.routers.gelf_tcp.entrypoints=gelf"
-#      - "traefik.tcp.routers.gelf_tcp.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.gelf_tcp.rule=HostSNI(`*`)"
       - "traefik.tcp.routers.gelf_tcp.service=gelf_tcp"
       - "traefik.tcp.services.gelf_tcp.loadbalancer.server.port=12201"
     networks:
