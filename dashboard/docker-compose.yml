@@ -11,7 +11,6 @@ services:
     - "traefik.docker.network=proxy"
     volumes:
     - data:/var/lib/grafana
-#    - config:/etc/grafana
     networks:
     - proxy
     - metrics
@@ -29,12 +28,6 @@ services:
     image: registry.lukemilius.com/influxdb
     labels:
     - "traefik.enable=true"
-#    - "traefik.http.routers.influxdb.entrypoints=websecure"
-#    - "traefik.http.routers.influxdb.rule=Host(`influxdb.lukemilius.com`)"
-#    - "traefik.http.routers.influxdb.middlewares=internal_only@file"
-#    - "traefik.http.routers.influxdb.tls=true"
-#    - "traefik.http.routers.influxdb.service=influxdb"
-#    - "traefik.http.services.influxdb.loadbalancer.server.port=8086"
     - "traefik.docker.network=proxy"
     - "traefik.tcp.routers.influxdb_tcp.entrypoints=influxdb"
     - "traefik.tcp.routers.influxdb_tcp.rule=HostSNI(`*`)"
@@ -165,15 +158,12 @@ services:
       - "traefik.http.routers.graylog.tls=true"
       - "traefik.docker.network=proxy"
       - "traefik.udp.routers.netflow.entrypoints=netflow"
-#      - "traefik.udp.routers.netflow.rule=HostSNI(`*`)"
       - "traefik.udp.routers.netflow.service=netflow"
       - "traefik.udp.services.netflow.loadbalancer.server.port=2055"
       - "traefik.udp.routers.syslog_feed.entrypoints=syslog_feed"
-#      - "traefik.udp.routers.syslog_feed.rule=HostSNI(`*`)"
       - "traefik.udp.routers.syslog_feed.service=syslog_feed"
       - "traefik.udp.services.syslog_feed.loadbalancer.server.port=5442"
       - "traefik.udp.routers.syslog_udp.entrypoints=syslog_udp"
-#      - "traefik.udp.routers.syslog_udp.rule=HostSNI(`*`)"
       - "traefik.udp.routers.syslog_udp.service=syslog_udp"
       - "traefik.udp.services.syslog_udp.loadbalancer.server.port=1514"
       - "traefik.tcp.routers.syslog_tcp.entrypoints=syslog"
@@ -181,7 +171,6 @@ services:
       - "traefik.tcp.routers.syslog_tcp.service=syslog_tcp"
       - "traefik.tcp.services.syslog_tcp.loadbalancer.server.port=1514"
       - "traefik.udp.routers.gelf_udp.entrypoints=gelf_udp"
-#      - "traefik.udp.routers.gelf_udp.rule=HostSNI(`*`)"
       - "traefik.udp.routers.gelf_udp.service=gelf_udp"
       - "traefik.udp.services.gelf_udp.loadbalancer.server.port=12201"
       - "traefik.tcp.routers.gelf_tcp.entrypoints=gelf"
