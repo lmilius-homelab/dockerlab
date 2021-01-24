@@ -216,6 +216,8 @@ services:
     image: mongo:3
     volumes:
       - mongo_data:/data/db
+    networks:
+      - metrics
 
 networks:
   metrics:
