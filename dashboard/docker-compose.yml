@@ -212,7 +212,7 @@ services:
       ELASTICSEARCH_URL: http://elasticsearch:9200
 
   # MongoDB: https://hub.docker.com/_/mongo/
-  mongodb:
+  mongo:
     image: mongo:3
     volumes:
       - mongo_data:/data/db

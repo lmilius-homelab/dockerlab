@@ -135,7 +135,7 @@ steps:
   image: docker/compose
   commands:
   - cd dashboard
-  - docker-compose down
+#  - docker-compose down
   - docker-compose pull
   - docker-compose up -d
   volumes:
