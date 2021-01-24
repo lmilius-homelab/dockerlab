@@ -140,6 +140,8 @@ services:
       - "traefik.http.routers.cerebro.tls=true"
       - "traefik.docker.network=proxy"
     restart: unless-stopped
+    expose:
+      - 9000
 
   # Graylog: https://hub.docker.com/r/graylog/graylog/
   graylog:
@@ -157,7 +159,6 @@ services:
       - "traefik.http.routers.graylog.rule=Host(`graylog.lukemilius.com`)"
       - "traefik.http.routers.graylog.middlewares=tfa_verify@file"
       - "traefik.http.routers.graylog.tls=true"
-#      - "traefik.http.services.graylog.loadbalancer.server.port=9000"
       - "traefik.docker.network=proxy"
       - "traefik.udp.routers.netflow.entrypoints=netflow"
       - "traefik.udp.routers.netflow.rule=HostSNI(`*`)"
