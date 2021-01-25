@@ -15,3 +15,8 @@ You will need to fill in the values for the secrets. Finally, run the following 
 ```shell script
 docker-compose up -d
 ```
+
+
+## Credits
+
+Thanks to [this guide](https://github.com/lephisto/pfsense-analytics) for the graylog setup to collect and display pfsense logs
