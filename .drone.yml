@@ -136,7 +136,7 @@ steps:
   commands:
   - cd dashboard
   - docker-compose pull
-  - docker-compose up -d
+  - docker-compose up -d --remove-orphans
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
