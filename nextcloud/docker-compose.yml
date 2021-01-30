@@ -2,7 +2,7 @@ version: '2.4'
 
 services:
   app:
-    image: nextcloud
+    image: registry.lukemilius.com/nextcloud
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.nextcloud.entrypoints=websecure"
