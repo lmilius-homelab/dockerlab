@@ -51,8 +51,8 @@ services:
     image: registry.lukemilius.com/prometheus:latest
     volumes:
     - prom_data:/prometheus
-    depends_on:
-    - cadvisor
+#    depends_on:
+#    - cadvisor
     networks:
     - metrics
     restart: unless-stopped
@@ -71,24 +71,24 @@ services:
     restart: unless-stopped
 
 
-  alertmanager:
-    image: registry.lukemilius.com/alertmanager
-    networks:
-    - metrics
-    volumes:
-    - alert_data:/alertmanager
-    restart: unless-stopped
-
-  cadvisor:
-    image: google/cadvisor
-    volumes:
-    - /:/rootfs:ro
-    - /var/run:/var/run:rw
-    - /sys:/sys:ro
-    - /var/lib/docker/:/var/lib/docker:ro
-    networks:
-    - metrics
-    restart: unless-stopped
+#  alertmanager:
+#    image: registry.lukemilius.com/alertmanager
+#    networks:
+#    - metrics
+#    volumes:
+#    - alert_data:/alertmanager
+#    restart: unless-stopped
+#
+#  cadvisor:
+#    image: google/cadvisor
+#    volumes:
+#    - /:/rootfs:ro
+#    - /var/run:/var/run:rw
+#    - /sys:/sys:ro
+#    - /var/lib/docker/:/var/lib/docker:ro
+#    networks:
+#    - metrics
+#    restart: unless-stopped
 
   telegraf:
     image: registry.lukemilius.com/telegraf
