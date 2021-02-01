@@ -1,7 +1,7 @@
 version: '2.4'
 services:
   portainer:
-    image: portainer/portainer:latest
+    image: portainer/portainer-ce:latest
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.portainer.entrypoints=websecure"
