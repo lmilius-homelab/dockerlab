@@ -14,7 +14,7 @@ steps:
   image: docker/compose
   commands:
   - cd whoami
-  - docker-compose up -d
+  - docker-compose down
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -44,6 +44,7 @@ steps:
   image: docker/compose
   commands:
   - cd portainer
+  - docker-compose pull
   - docker-compose up -d
   volumes:
   - name: dockersock
@@ -105,6 +106,7 @@ steps:
   image: docker/compose
   commands:
   - cd volumerize
+  - docker-compose pull
   - docker-compose up -d
   volumes:
   - name: dockersock
@@ -172,6 +174,7 @@ steps:
   image: docker/compose
   commands:
   - cd organizr
+  - docker-compose pull
   - docker-compose up -d
   volumes:
   - name: dockersock
@@ -202,6 +205,7 @@ steps:
   image: docker/compose
   commands:
   - cd ddns
+  - docker-compose pull
   - docker-compose up -d
   volumes:
   - name: dockersock
@@ -234,6 +238,7 @@ steps:
   image: docker/compose
   commands:
   - cd registry
+  - docker-compose pull
   - docker-compose up -d
   volumes:
   - name: dockersock
@@ -264,6 +269,7 @@ steps:
   image: docker/compose
   commands:
   - cd homeassistant
+  - docker-compose pull
   - docker-compose up -d
   volumes:
   - name: dockersock
@@ -299,6 +305,7 @@ steps:
   image: docker/compose
   commands:
   - cd bitwarden
+  - docker-compose pull
   - docker-compose up -d
   volumes:
   - name: dockersock
@@ -332,6 +339,7 @@ steps:
   image: docker/compose
   commands:
   - cd virtman
+  - docker-compose pull
   - docker-compose up -d
   volumes:
   - name: dockersock
@@ -363,6 +371,7 @@ steps:
   image: docker/compose
   commands:
   - cd nextcloud
+  - docker-compose pull
   - docker-compose up -d
   volumes:
   - name: dockersock
