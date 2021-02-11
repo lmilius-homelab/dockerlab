@@ -33,13 +33,20 @@ services:
     - "traefik.http.routers.duplicati.entrypoints=websecure"
     - "traefik.http.routers.duplicati.rule=Host(`backups.lukemilius.com`)"
     - "traefik.http.routers.duplicati.middlewares=tfa_verify@file"
-    - "traefik.http.routers.duplicati.tls=false"
+    - "traefik.http.routers.duplicati.tls=true"
     expose:
     - 8200
     restart: unless-stopped
     volumes:
     - duplicati:/data
     - organizr_config:/src/organizr_config:ro
+    networks:
+    - proxy
+
+
+networks:
+  proxy:
+    external: true
 
 
 volumes:
