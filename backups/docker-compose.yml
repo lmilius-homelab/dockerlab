@@ -28,6 +28,7 @@ services:
 
   duplicati:
     image: duplicati/duplicati
+    command: "duplicati-server --webservice-interface=any --webservice-port=8200 --webservice-allowed-hostnames=*"
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.duplicati.entrypoints=websecure"
