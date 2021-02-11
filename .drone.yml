@@ -30,7 +30,7 @@ volumes:
 
 ---
 kind: pipeline
-name: volumerize
+name: backups
 type: docker
 
 trigger:
@@ -43,7 +43,7 @@ steps:
 - name: Deploy
   image: docker/compose
   commands:
-  - cd volumerize
+  - cd backups
   - docker-compose pull
   - docker-compose up -d
   volumes:
