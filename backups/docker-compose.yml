@@ -33,7 +33,7 @@ services:
     - "traefik.http.routers.duplicati.entrypoints=websecure"
     - "traefik.http.routers.duplicati.rule=Host(`backups.lukemilius.com`)"
     - "traefik.http.routers.duplicati.middlewares=tfa_verify@file"
-    - "traefik.http.routers.duplicati.tls=true"
+    - "traefik.http.routers.duplicati.tls=false"
     expose:
     - 8200
     restart: unless-stopped
