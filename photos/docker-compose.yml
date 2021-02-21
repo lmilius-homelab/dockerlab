@@ -1,36 +1,11 @@
 version: '2.4'
 services:
-#  photostructure:
-#    image: photostructure/server
-#    labels:
-#    - "traefik.enable=true"
-#    - "traefik.http.routers.photostructure.entrypoints=websecure"
-#    - "traefik.http.routers.photostructure.rule=Host(`photos.lukemilius.com`)"
-#    - "traefik.http.routers.photostructure.middlewares=internal_only@file"
-#    - "traefik.http.routers.photostructure.tls=true"
-#    expose:
-#    - 1787
-#    volumes:
-#    - library:/ps/library
-#    - tmp:/ps/tmp
-#    - config:/ps/config
-#    - logs:/ps/logs
-#    - backup:/photos-backup
-#    - pictures:/pictures/
-#    networks:
-#    - proxy
-#    restart: unless-stopped
-#    stop_grace_period: 2m
-#    environment:
-#      TZ: "America/Chicago"
-#      PS_FORCE_LOCAL_DB_REPLICA: "1"
-
 
   db:
     image: mariadb:10.5
     restart: unless-stopped
     networks:
-      - photos
+      - db
     environment:
       MYSQL_DATABASE: photoview
       MYSQL_USER: photoview
@@ -44,13 +19,13 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.photoview.entrypoints=websecure"
-      - "traefik.http.routers.photoview.rule=Host(`photoview.lukemilius.com`)"
+      - "traefik.http.routers.photoview.rule=Host(`photos.lukemilius.com`)"
       - "traefik.http.routers.photoview.middlewares=internal_only@file"
       - "traefik.http.routers.photoview.tls=true"
     restart: unless-stopped
     networks:
       - proxy
-      - photos
+      - db
     expose:
       - 80
     depends_on:
@@ -66,7 +41,7 @@ services:
       # Change This: The publicly exposed url
       # For example if the server is available from the domain example.com,
       # change this value to http://example.com/
-      PHOTOVIEW_PUBLIC_ENDPOINT: https://photoview.lukemilius.com
+      PHOTOVIEW_PUBLIC_ENDPOINT: https://photos.lukemilius.com
 
       # Optional: To enable map related features, you need to create a mapbox token.
       # A token can be generated for free here https://account.mapbox.com/access-tokens/
@@ -85,7 +60,7 @@ services:
 networks:
   proxy:
     external: true
-  photos:
+  db:
 
 volumes:
   db_data:

@@ -331,7 +331,7 @@ volumes:
 
 ---
 kind: pipeline
-name: photostructure
+name: photos
 type: docker
 
 trigger:
@@ -344,7 +344,7 @@ steps:
 - name: Deploy
   image: docker/compose
   commands:
-  - cd photostructure
+  - cd photos
   - docker-compose pull
   - docker-compose up -d
   volumes:
@@ -352,9 +352,9 @@ steps:
     path: /var/run/docker.sock
   environment:
     MYSQL_PASSWORD:
-      from_secret: nextcloud_user_password
+      from_secret: photoview_user_password
     MYSQL_ROOT_PASSWORD:
-      from_secret: nextcloud_root_password
+      from_secret: photoview_root_password
   when:
     event:
     - push
