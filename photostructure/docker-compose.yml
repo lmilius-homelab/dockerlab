@@ -1,0 +1,98 @@
+version: '2.4'
+services:
+#  photostructure:
+#    image: photostructure/server
+#    labels:
+#    - "traefik.enable=true"
+#    - "traefik.http.routers.photostructure.entrypoints=websecure"
+#    - "traefik.http.routers.photostructure.rule=Host(`photos.lukemilius.com`)"
+#    - "traefik.http.routers.photostructure.middlewares=internal_only@file"
+#    - "traefik.http.routers.photostructure.tls=true"
+#    expose:
+#    - 1787
+#    volumes:
+#    - library:/ps/library
+#    - tmp:/ps/tmp
+#    - config:/ps/config
+#    - logs:/ps/logs
+#    - backup:/photos-backup
+#    - pictures:/pictures/
+#    networks:
+#    - proxy
+#    restart: unless-stopped
+#    stop_grace_period: 2m
+#    environment:
+#      TZ: "America/Chicago"
+#      PS_FORCE_LOCAL_DB_REPLICA: "1"
+
+
+  db:
+    image: mariadb:10.5
+    restart: unless-stopped
+    networks:
+      - photos
+    environment:
+      MYSQL_DATABASE: photoview
+      MYSQL_USER: photoview
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+  photoview:
+    image: viktorstrate/photoview:2
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.photoview.entrypoints=websecure"
+      - "traefik.http.routers.photoview.rule=Host(`photoview.lukemilius.com`)"
+      - "traefik.http.routers.photoview.middlewares=internal_only@file"
+      - "traefik.http.routers.photoview.tls=true"
+    restart: unless-stopped
+    networks:
+      - proxy
+      - photos
+    expose:
+      - 80
+    depends_on:
+      - db
+
+    environment:
+      PHOTOVIEW_DATABASE_DRIVER: mysql
+      PHOTOVIEW_MYSQL_URL: photoview:${MYSQL_PASSWORD}@tcp(db)/photoview
+      PHOTOVIEW_LISTEN_IP: photoview
+      PHOTOVIEW_LISTEN_PORT: 80
+      PHOTOVIEW_MEDIA_CACHE: /app/cache
+
+      # Change This: The publicly exposed url
+      # For example if the server is available from the domain example.com,
+      # change this value to http://example.com/
+      PHOTOVIEW_PUBLIC_ENDPOINT: https://photoview.lukemilius.com
+
+      # Optional: To enable map related features, you need to create a mapbox token.
+      # A token can be generated for free here https://account.mapbox.com/access-tokens/
+      # It's a good idea to limit the scope of the token to your own domain, to prevent others from using it.
+      # MAPBOX_TOKEN: <YOUR TOKEN HERE>
+
+    volumes:
+      - api_cache:/app/cache
+
+      # Change this to the directory where your photos are located on your server.
+      # If the photos are located at `/home/user/photos`, then change this value
+      # to the following: `/home/user/photos:/photos:ro`.
+      # You can mount multiple paths, if your photos are spread across multiple directories.
+      - photos_data:/photos:ro
+
+networks:
+  proxy:
+    external: true
+  photos:
+
+volumes:
+  db_data:
+  api_cache:
+  photos_data:
+    driver: local
+    driver_opts:
+      type: "nfs4"
+      o: "addr=nas.milius.home,nolock,soft,r"
+      device: ":/mnt/tank1/Pictures"
