@@ -26,9 +26,33 @@ services:
       VOLUMERIZE_CONTAINERS: "bitwarden_bitwarden_1 dashboard_influxdb_1"
 #       VOLUMERIZE_CONTAINERS: "bitwarden_bitwarden_1 pihole_pihole_1 primpol_db_1 primpol_primpol_1 homeassistant_mariadb_1 organizr_organizr_1 dashboard_grafana_1 homeassistant_mdbadmin_1 runner-01 dashboard_speedtest_1 dashboard_node-exporter_1 dashboard_prometheus_1 dashboard_alertmanager_1 dashboard_telegraf_1 dashboard_influxdb_1 dashboard_cadvisor_1 portainer_portainer_1 ddns_ddns_1 registry_registry_1 drone_drone_1 proxy_traefik_1 proxy_forward-auth_1"
 
+  duplicati:
+    image: duplicati/duplicati
+    command: "duplicati-server --webservice-interface=any --webservice-port=8200 --webservice-allowed-hostnames=*"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.duplicati.entrypoints=websecure"
+    - "traefik.http.routers.duplicati.rule=Host(`backups.lukemilius.com`)"
+    - "traefik.http.routers.duplicati.middlewares=tfa_verify@file"
+    - "traefik.http.routers.duplicati.tls=true"
+    expose:
+    - 8200
+    restart: unless-stopped
+    volumes:
+    - duplicati:/data
+    - organizr_config:/src/organizr_config:ro
+    networks:
+    - proxy
+
+
+networks:
+  proxy:
+    external: true
+
 
 volumes:
   cache:
+  duplicati:
   portainer_portainer:
     external: true
   proxy_letsencrypt:
