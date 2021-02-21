@@ -18,10 +18,10 @@ services:
     image: viktorstrate/photoview:2
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.photoview.entrypoints=websecure"
-      - "traefik.http.routers.photoview.rule=Host(`photos.lukemilius.com`)"
-      - "traefik.http.routers.photoview.middlewares=internal_only@file"
-      - "traefik.http.routers.photoview.tls=true"
+      - "traefik.http.routers.photoviewer.entrypoints=websecure"
+      - "traefik.http.routers.photoviewer.rule=Host(`photos.lukemilius.com`)"
+      - "traefik.http.routers.photoviewer.middlewares=internal_only@file"
+      - "traefik.http.routers.photoviewer.tls=true"
     restart: unless-stopped
     networks:
       - proxy
