@@ -20,3 +20,4 @@ docker-compose up -d
 ## Credits
 
 Thanks to [this guide](https://github.com/lephisto/pfsense-analytics) for the graylog setup to collect and display pfsense logs
+
