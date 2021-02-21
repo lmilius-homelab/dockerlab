@@ -80,7 +80,7 @@ services:
       # If the photos are located at `/home/user/photos`, then change this value
       # to the following: `/home/user/photos:/photos:ro`.
       # You can mount multiple paths, if your photos are spread across multiple directories.
-      - photos_data:/photos:ro
+      - /mnt/Pictures:/photos:ro
 
 networks:
   proxy:
@@ -90,9 +90,3 @@ networks:
 volumes:
   db_data:
   api_cache:
-  photos_data:
-    driver: local
-    driver_opts:
-      type: "nfs4"
-      o: "addr=10.10.200.211,nolock,soft,r"
-      device: ":/mnt/tank1/Pictures"
