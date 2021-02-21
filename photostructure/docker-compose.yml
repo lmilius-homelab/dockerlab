@@ -94,5 +94,5 @@ volumes:
     driver: local
     driver_opts:
       type: "nfs4"
-      o: "addr=nas.milius.home,nolock,soft,r"
+      o: "addr=10.10.200.211,nolock,soft,r"
       device: ":/mnt/tank1/Pictures"
