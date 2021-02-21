@@ -5,7 +5,7 @@ services:
     image: mariadb:10.5
     restart: unless-stopped
     networks:
-      - db
+      - db_net
     environment:
       MYSQL_DATABASE: photoview
       MYSQL_USER: photoview
@@ -25,7 +25,7 @@ services:
     restart: unless-stopped
     networks:
       - proxy
-      - db
+      - db_net
     expose:
       - 80
     depends_on:
@@ -60,7 +60,7 @@ services:
 networks:
   proxy:
     external: true
-  db:
+  db_net:
 
 volumes:
   db_data:
