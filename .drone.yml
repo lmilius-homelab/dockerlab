@@ -355,6 +355,8 @@ steps:
       from_secret: photoview_user_password
     MYSQL_ROOT_PASSWORD:
       from_secret: photoview_root_password
+    MAPBOX_TOKEN:
+      from_secret: mapbox_token
   when:
     event:
     - push
