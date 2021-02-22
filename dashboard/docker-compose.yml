@@ -224,7 +224,7 @@ volumes:
   data:
   config:
   prom_data:
-  alert_data:
+#  alert_data:
   influxdb_data:
   es_data:
   mongo_data:
