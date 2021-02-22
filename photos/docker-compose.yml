@@ -22,6 +22,7 @@ services:
       - "traefik.http.routers.photoviewer.rule=Host(`photos.lukemilius.com`)"
       - "traefik.http.routers.photoviewer.middlewares=internal_only@file"
       - "traefik.http.routers.photoviewer.tls=true"
+      - "traefik.docker.network=proxy"
     restart: unless-stopped
     networks:
       - proxy
