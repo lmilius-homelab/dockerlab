@@ -1,0 +1,68 @@
+version: '2.4'
+services:
+
+  db:
+    image: mariadb:10.5
+    restart: unless-stopped
+    networks:
+      - db_net
+    environment:
+      MYSQL_DATABASE: photoview
+      MYSQL_USER: photoview
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+  photoview:
+    image: viktorstrate/photoview:edge
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.photoviewer-dev.entrypoints=websecure"
+      - "traefik.http.routers.photoviewer-dev.rule=Host(`photos-dev.lukemilius.com`)"
+      - "traefik.http.routers.photoviewer-dev.middlewares=internal_only@file"
+      - "traefik.http.routers.photoviewer-dev.tls=true"
+      - "traefik.docker.network=proxy"
+    restart: unless-stopped
+    networks:
+      - proxy
+      - db_net
+    expose:
+      - 80
+    depends_on:
+      - db
+
+    environment:
+      PHOTOVIEW_DATABASE_DRIVER: mysql
+      PHOTOVIEW_MYSQL_URL: photoview:${MYSQL_PASSWORD}@tcp(db)/photoview
+      PHOTOVIEW_LISTEN_IP: photoview
+      PHOTOVIEW_LISTEN_PORT: 80
+      PHOTOVIEW_MEDIA_CACHE: /app/cache
+
+      # Change This: The publicly exposed url
+      # For example if the server is available from the domain example.com,
+      # change this value to http://example.com/
+      PHOTOVIEW_PUBLIC_ENDPOINT: https://photos-dev.lukemilius.com
+
+      # Optional: To enable map related features, you need to create a mapbox token.
+      # A token can be generated for free here https://account.mapbox.com/access-tokens/
+      # It's a good idea to limit the scope of the token to your own domain, to prevent others from using it.
+      MAPBOX_TOKEN: ${MAPBOX_TOKEN}
+
+    volumes:
+      - api_cache:/app/cache
+
+      # Change this to the directory where your photos are located on your server.
+      # If the photos are located at `/home/user/photos`, then change this value
+      # to the following: `/home/user/photos:/photos:ro`.
+      # You can mount multiple paths, if your photos are spread across multiple directories.
+      - /mnt/Pictures/RandomPics:/photos:ro
+
+networks:
+  proxy:
+    external: true
+  db_net:
+
+volumes:
+  db_data:
+  api_cache:
