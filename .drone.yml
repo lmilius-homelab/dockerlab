@@ -365,3 +365,41 @@ volumes:
 - name: dockersock
   host:
     path: /var/run/docker.sock
+
+
+---
+kind: pipeline
+name: photos-dev
+type: docker
+
+trigger:
+  branch:
+  - master
+  event:
+  - push
+
+steps:
+- name: Deploy
+  image: docker/compose
+  commands:
+  - cd photos-dev
+  - docker-compose pull
+  - docker-compose up -d
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+  environment:
+    MYSQL_PASSWORD:
+      from_secret: photoview_user_password
+    MYSQL_ROOT_PASSWORD:
+      from_secret: photoview_root_password
+    MAPBOX_TOKEN:
+      from_secret: mapbox_token
+  when:
+    event:
+    - push
+
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
