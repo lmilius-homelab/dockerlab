@@ -10,6 +10,8 @@ services:
     logging:
       driver: "none"
     restart: unless-stopped
+    networks:
+    - wiki_net
     volumes:
       - db-data:/var/lib/postgresql/data
 
@@ -36,6 +38,7 @@ services:
       - 3000
     networks:
     - proxy
+    - wiki_net
 
 volumes:
   db-data:
@@ -43,3 +46,4 @@ volumes:
 networks:
   proxy:
     external: true
+  wiki_net:
