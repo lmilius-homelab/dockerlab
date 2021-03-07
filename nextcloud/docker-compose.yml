@@ -33,7 +33,7 @@ services:
     restart: unless-stopped
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
-      - data:/var/lib/mysql
+      - db_data:/var/lib/mysql
     networks:
       - nextcloud
     environment:
@@ -50,4 +50,4 @@ networks:
 
 volumes:
   config:
-  data:
+  db_data:
