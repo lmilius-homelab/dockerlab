@@ -17,6 +17,7 @@ services:
       - db
     volumes:
       - config:/var/www/html
+      - /mnt/cont_data/nextcloud/data:/opt/nextcloud/data
     networks:
       - proxy
       - nextcloud
@@ -25,6 +26,7 @@ services:
       MYSQL_DATABASE: nextcloud
       MYSQL_USER: nextcloud
       MYSQL_HOST: db
+      NEXTCLOUD_DATA_DIR: /opt/nextcloud/data
 
   db:
     image: mariadb
