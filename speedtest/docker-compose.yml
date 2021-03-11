@@ -4,17 +4,17 @@ services:
   openspeedtest:
     image: openspeedtest/latest
     restart: unless-stopped
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.speedtest.entrypoints=websecure"
-      - "traefik.http.routers.speedtest.rule=Host(`speedtest.lukemilius.com`)"
-      - "traefik.http.routers.speedtest.middlewares=internal_only@file"
-      - "traefik.http.routers.speedtest.tls=true"
-      - "traefik.docker.network=proxy"
-    networks:
-      - proxy
-    expose:
-      - 8080
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.speedtest.entrypoints=websecure"
+#      - "traefik.http.routers.speedtest.rule=Host(`speedtest.lukemilius.com`)"
+#      - "traefik.http.routers.speedtest.middlewares=internal_only@file"
+#      - "traefik.http.routers.speedtest.tls=true"
+#      - "traefik.docker.network=proxy"
+#    networks:
+#      - proxy
+    ports:
+      - 8080:8080
 
 networks:
   proxy:
