@@ -1,0 +1,33 @@
+version: '2.4'
+services:
+
+  syncthing:
+    image: ghcr.io/linuxserver/syncthing
+    restart: unless-stopped
+    environment:
+      TZ: America/Chicago
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.syncthing.entrypoints=websecure"
+      - "traefik.http.routers.syncthing.rule=Host(`sync.lukemilius.com`)"
+      - "traefik.http.routers.syncthing.middlewares=internal_only@file"
+      - "traefik.http.routers.syncthing.tls=true"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy
+    expose:
+      - 8384
+    ports:
+      - 22000:22000
+      - 21027:21027/udp
+    volumes:
+      - config:/config
+      - /lib/modules:/lib/modules
+      - /mnt/cont_data/syncthing/satisfactory:/satisfactory
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  config:
