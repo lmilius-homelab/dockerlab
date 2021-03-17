@@ -3,6 +3,7 @@ services:
 
   syncthing:
     image: ghcr.io/linuxserver/syncthing
+    hostname: syncthing
     restart: unless-stopped
     environment:
       TZ: America/Chicago
