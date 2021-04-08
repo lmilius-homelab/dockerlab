@@ -425,7 +425,7 @@ steps:
   - docker-compose up -d
   volumes:
   - name: dockersock
-    path: /var/run/docker.sock  
+    path: /var/run/docker.sock
   environment:
     MYSQL_PASSWORD:
       from_secret: photoview_user_password
