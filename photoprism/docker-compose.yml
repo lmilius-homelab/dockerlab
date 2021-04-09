@@ -41,15 +41,15 @@ services:
       - apparmor:unconfined
     labels:
     - "traefik.enable=true"
-    - "traefik.http.routers.photoviewer.entrypoints=websecure"
-    - "traefik.http.routers.photoviewer.rule=Host(`photoprism.lukemilius.com`)"
-    - "traefik.http.routers.photoviewer.middlewares=internal_only@file"
-    - "traefik.http.routers.photoviewer.tls=true"
+    - "traefik.http.routers.photoprism.entrypoints=websecure"
+    - "traefik.http.routers.photoprism.rule=Host(`photoprism.lukemilius.com`)"
+    - "traefik.http.routers.photoprism.middlewares=internal_only@file"
+    - "traefik.http.routers.photoprism.tls=true"
     - "traefik.docker.network=proxy"
     expose:
       - 2342
     environment:
-      #PHOTOPRISM_ADMIN_PASSWORD: "insecure"          # PLEASE CHANGE: Your initial admin password (min 4 characters)
+      PHOTOPRISM_ADMIN_PASSWORD: ${ADMIN_PASSWORD}   # PLEASE CHANGE: Your initial admin password (min 4 characters)
       PHOTOPRISM_HTTP_PORT: 2342                     # Built-in Web server port
       PHOTOPRISM_HTTP_COMPRESSION: "gzip"            # Improves transfer speed and bandwidth utilization (none or gzip)
       PHOTOPRISM_DEBUG: "false"                      # Run in debug mode (shows additional log messages)

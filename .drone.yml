@@ -431,6 +431,8 @@ steps:
       from_secret: photoview_user_password
     MYSQL_ROOT_PASSWORD:
       from_secret: photoview_root_password
+    ADMIN_PASSWORD:
+      from_secret: admin_password
   when:
     event:
     - push
