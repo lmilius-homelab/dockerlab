@@ -309,8 +309,9 @@ steps:
   image: docker/compose
   commands:
   - cd nextcloud
-  - docker-compose pull
-  - docker-compose up -d
+  - docker-compose down
+#  - docker-compose pull
+#  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -345,8 +346,9 @@ steps:
   image: docker/compose
   commands:
   - cd photos
-  - docker-compose pull
-  - docker-compose up -d
+  - docker-compose down
+#  - docker-compose pull
+#  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
@@ -383,8 +385,9 @@ steps:
   image: docker/compose
   commands:
   - cd photos-dev
-  - docker-compose pull
-  - docker-compose up -d
+  - docker-compose down
+#  - docker-compose pull
+#  - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
