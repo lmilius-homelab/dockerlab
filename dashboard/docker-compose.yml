@@ -97,7 +97,7 @@ services:
     restart: unless-stopped
 
   speedtest:
-    image: registry.lukemilius.com/speedtest:1.0.6
+    image: registry.lukemilius.com/speedtest:1.0.7
     networks:
     - metrics
     restart: unless-stopped
