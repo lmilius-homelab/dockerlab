@@ -11,7 +11,7 @@ services:
       TZ: America/Chicago
       SERVERURL: wireguard.lukemilius.com
       SERVERPORT: 51820
-      PEERS: liphone,slate
+      PEERS: liphone,slate,carbon,tablet,gateway
     ports:
       - 51820:51820/udp
     volumes:
