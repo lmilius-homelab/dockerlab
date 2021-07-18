@@ -534,6 +534,9 @@ steps:
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
+  environment:
+    INTERNAL_DNS:
+      from_secret: internal_dns
   when:
     event:
     - push

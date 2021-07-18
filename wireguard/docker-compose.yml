@@ -12,6 +12,7 @@ services:
       SERVERURL: wireguard.lukemilius.com
       SERVERPORT: 51820
       PEERS: liphone,slate,carbon,tablet,gateway
+      PEERDNS: $INTERNAL_DNS
     ports:
       - 51820:51820/udp
     volumes:
