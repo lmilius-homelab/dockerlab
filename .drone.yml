@@ -277,8 +277,9 @@ steps:
   image: docker/compose
   commands:
   - cd virtman
-  - docker-compose pull
-  - docker-compose up -d
+  - docker-compose down
+#   - docker-compose pull
+#   - docker-compose up -d
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
