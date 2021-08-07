@@ -96,124 +96,124 @@ services:
     - metrics
     restart: unless-stopped
 
-  speedtest:
-    image: registry.lukemilius.com/speedtest:1.0.7
-    networks:
-    - metrics
-    restart: unless-stopped
+#   speedtest:
+#     image: registry.lukemilius.com/speedtest:1.0.7
+#     networks:
+#     - metrics
+#     restart: unless-stopped
 
   # Elasticsearch: https://www.elastic.co/guide/en/elasticsearch/reference/6.x/docker.html
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.5
-    restart: unless-stopped
-    volumes:
-      - es_data:/usr/share/elasticsearch/data
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    networks:
-      - metrics
-    environment:
-      - http.host=0.0.0.0
-      - transport.host=0.0.0.0
-      - network.host=0.0.0.0
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-      - ES_HEAP_SIZE=2g
+#   elasticsearch:
+#     image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.5
+#     restart: unless-stopped
+#     volumes:
+#       - es_data:/usr/share/elasticsearch/data
+#     ulimits:
+#       memlock:
+#         soft: -1
+#         hard: -1
+#     networks:
+#       - metrics
+#     environment:
+#       - http.host=0.0.0.0
+#       - transport.host=0.0.0.0
+#       - network.host=0.0.0.0
+#       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+#       - ES_HEAP_SIZE=2g
 
 
-  cerebro:
-    image: lmenezes/cerebro
-    depends_on:
-      - elasticsearch
-    networks:
-      - proxy
-      - metrics
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.cerebro.entrypoints=websecure"
-      - "traefik.http.routers.cerebro.rule=Host(`cerebro.lukemilius.com`)"
-      - "traefik.http.routers.cerebro.middlewares=tfa_verify@file"
-      - "traefik.http.routers.cerebro.tls=true"
-      - "traefik.docker.network=proxy"
-    restart: unless-stopped
-    expose:
-      - 9000
+#   cerebro:
+#     image: lmenezes/cerebro
+#     depends_on:
+#       - elasticsearch
+#     networks:
+#       - proxy
+#       - metrics
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.cerebro.entrypoints=websecure"
+#       - "traefik.http.routers.cerebro.rule=Host(`cerebro.lukemilius.com`)"
+#       - "traefik.http.routers.cerebro.middlewares=tfa_verify@file"
+#       - "traefik.http.routers.cerebro.tls=true"
+#       - "traefik.docker.network=proxy"
+#     restart: unless-stopped
+#     expose:
+#       - 9000
 
   # Graylog: https://hub.docker.com/r/graylog/graylog/
-  graylog:
-    image: registry.lukemilius.com/graylog
-    volumes:
-      - graylog_journal:/usr/share/graylog/data/journal
-    depends_on:
-      - mongo
-      - elasticsearch
-    expose:
-      - 9000
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.graylog.entrypoints=websecure"
-      - "traefik.http.routers.graylog.rule=Host(`graylog.lukemilius.com`)"
-      - "traefik.http.routers.graylog.middlewares=tfa_verify@file"
-      - "traefik.http.routers.graylog.tls=true"
-      - "traefik.docker.network=proxy"
-      - "traefik.udp.routers.netflow.entrypoints=netflow"
-      - "traefik.udp.routers.netflow.service=netflow"
-      - "traefik.udp.services.netflow.loadbalancer.server.port=2055"
-      - "traefik.udp.routers.syslog_feed.entrypoints=syslog_feed"
-      - "traefik.udp.routers.syslog_feed.service=syslog_feed"
-      - "traefik.udp.services.syslog_feed.loadbalancer.server.port=5442"
-      - "traefik.udp.routers.syslog_udp.entrypoints=syslog_udp"
-      - "traefik.udp.routers.syslog_udp.service=syslog_udp"
-      - "traefik.udp.services.syslog_udp.loadbalancer.server.port=1514"
-      - "traefik.tcp.routers.syslog_tcp.entrypoints=syslog"
-      - "traefik.tcp.routers.syslog_tcp.rule=HostSNI(`*`)"
-      - "traefik.tcp.routers.syslog_tcp.service=syslog_tcp"
-      - "traefik.tcp.services.syslog_tcp.loadbalancer.server.port=1514"
-      - "traefik.udp.routers.gelf_udp.entrypoints=gelf_udp"
-      - "traefik.udp.routers.gelf_udp.service=gelf_udp"
-      - "traefik.udp.services.gelf_udp.loadbalancer.server.port=12201"
-      - "traefik.tcp.routers.gelf_tcp.entrypoints=gelf"
-      - "traefik.tcp.routers.gelf_tcp.rule=HostSNI(`*`)"
-      - "traefik.tcp.routers.gelf_tcp.service=gelf_tcp"
-      - "traefik.tcp.services.gelf_tcp.loadbalancer.server.port=12201"
-    networks:
-      - proxy
-      - metrics
-    restart: unless-stopped
-    environment:
-      GRAYLOG_PASSWORD_SECRET: ${GRAYLOG_PASSWORD_SECRET}
-      GRAYLOG_ROOT_PASSWORD_SHA2: ${GRAYLOG_ROOT_PASSWORD_SHA2}
-      GRAYLOG_HTTP_EXTERNAL_URI: https://graylog.lukemilius.com/
-      GRAYLOG_TIMEZONE: America/Chicago
+#   graylog:
+#     image: registry.lukemilius.com/graylog
+#     volumes:
+#       - graylog_journal:/usr/share/graylog/data/journal
+#     depends_on:
+#       - mongo
+#       - elasticsearch
+#     expose:
+#       - 9000
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.graylog.entrypoints=websecure"
+#       - "traefik.http.routers.graylog.rule=Host(`graylog.lukemilius.com`)"
+#       - "traefik.http.routers.graylog.middlewares=tfa_verify@file"
+#       - "traefik.http.routers.graylog.tls=true"
+#       - "traefik.docker.network=proxy"
+#       - "traefik.udp.routers.netflow.entrypoints=netflow"
+#       - "traefik.udp.routers.netflow.service=netflow"
+#       - "traefik.udp.services.netflow.loadbalancer.server.port=2055"
+#       - "traefik.udp.routers.syslog_feed.entrypoints=syslog_feed"
+#       - "traefik.udp.routers.syslog_feed.service=syslog_feed"
+#       - "traefik.udp.services.syslog_feed.loadbalancer.server.port=5442"
+#       - "traefik.udp.routers.syslog_udp.entrypoints=syslog_udp"
+#       - "traefik.udp.routers.syslog_udp.service=syslog_udp"
+#       - "traefik.udp.services.syslog_udp.loadbalancer.server.port=1514"
+#       - "traefik.tcp.routers.syslog_tcp.entrypoints=syslog"
+#       - "traefik.tcp.routers.syslog_tcp.rule=HostSNI(`*`)"
+#       - "traefik.tcp.routers.syslog_tcp.service=syslog_tcp"
+#       - "traefik.tcp.services.syslog_tcp.loadbalancer.server.port=1514"
+#       - "traefik.udp.routers.gelf_udp.entrypoints=gelf_udp"
+#       - "traefik.udp.routers.gelf_udp.service=gelf_udp"
+#       - "traefik.udp.services.gelf_udp.loadbalancer.server.port=12201"
+#       - "traefik.tcp.routers.gelf_tcp.entrypoints=gelf"
+#       - "traefik.tcp.routers.gelf_tcp.rule=HostSNI(`*`)"
+#       - "traefik.tcp.routers.gelf_tcp.service=gelf_tcp"
+#       - "traefik.tcp.services.gelf_tcp.loadbalancer.server.port=12201"
+#     networks:
+#       - proxy
+#       - metrics
+#     restart: unless-stopped
+#     environment:
+#       GRAYLOG_PASSWORD_SECRET: ${GRAYLOG_PASSWORD_SECRET}
+#       GRAYLOG_ROOT_PASSWORD_SHA2: ${GRAYLOG_ROOT_PASSWORD_SHA2}
+#       GRAYLOG_HTTP_EXTERNAL_URI: https://graylog.lukemilius.com/
+#       GRAYLOG_TIMEZONE: America/Chicago
 
 
-  # Kibana : https://www.elastic.co/guide/en/kibana/6.8/index.html
-  kibana:
-    image: docker.elastic.co/kibana/kibana-oss:6.8.5
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.kibana.entrypoints=websecure"
-      - "traefik.http.routers.kibana.rule=Host(`kibana.lukemilius.com`)"
-      - "traefik.http.routers.kibana.middlewares=tfa_verify@file"
-      - "traefik.http.routers.kibana.tls=true"
-      - "traefik.docker.network=proxy"
-    depends_on:
-      - elasticsearch
-    networks:
-      - proxy
-      - metrics
-    restart: unless-stopped
-    environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
+#   # Kibana : https://www.elastic.co/guide/en/kibana/6.8/index.html
+#   kibana:
+#     image: docker.elastic.co/kibana/kibana-oss:6.8.5
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.kibana.entrypoints=websecure"
+#       - "traefik.http.routers.kibana.rule=Host(`kibana.lukemilius.com`)"
+#       - "traefik.http.routers.kibana.middlewares=tfa_verify@file"
+#       - "traefik.http.routers.kibana.tls=true"
+#       - "traefik.docker.network=proxy"
+#     depends_on:
+#       - elasticsearch
+#     networks:
+#       - proxy
+#       - metrics
+#     restart: unless-stopped
+#     environment:
+#       ELASTICSEARCH_URL: http://elasticsearch:9200
 
-  # MongoDB: https://hub.docker.com/_/mongo/
-  mongo:
-    image: mongo:3
-    volumes:
-      - mongo_data:/data/db
-    networks:
-      - metrics
+#   # MongoDB: https://hub.docker.com/_/mongo/
+#   mongo:
+#     image: mongo:3
+#     volumes:
+#       - mongo_data:/data/db
+#     networks:
+#       - metrics
 
 networks:
   metrics:
@@ -226,6 +226,6 @@ volumes:
   prom_data:
 #  alert_data:
   influxdb_data:
-  es_data:
-  mongo_data:
-  graylog_journal:
+#   es_data:
+#   mongo_data:
+#   graylog_journal:
