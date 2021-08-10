@@ -19,19 +19,19 @@ services:
       - config:/config
       - /lib/modules:/lib/modules
     
-    client:
-      image: ghcr.io/linuxserver/wireguard
-      restart: unless-stopped
-      cap_add:
-        - NET_ADMIN
-        - SYS_MODULE
-      environment:
-        TZ: America/Chicago
-      ports:
-        - 51820:51820/udp
-      volumes:
-        - client_config:/config
-        - /lib/modules:/lib/modules
+  client:
+    image: ghcr.io/linuxserver/wireguard
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      TZ: America/Chicago
+    ports:
+      - 51820:51820/udp
+    volumes:
+      - client_config:/config
+      - /lib/modules:/lib/modules
 
 volumes:
   config:
