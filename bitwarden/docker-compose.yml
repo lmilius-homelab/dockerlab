@@ -1,7 +1,7 @@
 version: '2.4'
 services:
   bitwarden:
-    image: bitwardenrs/server:latest
+    image: vaultwarden/server:latest
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.bitwarden.entrypoints=websecure"
