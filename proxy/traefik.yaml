@@ -31,20 +31,20 @@ entrypoints:
     address: ":8086"
   graphite:
     address: ":2003"
-  mysql:
-    address: ":3306"
-  netflow:
-    address: ":2055/udp"
-  syslog_feed:
-    address: ":5442/udp"
-  syslog:
-    address: ":1514"
-  gelf:
-    address: ":12201"
-  syslog_udp:
-    address: ":1514/udp"
-  gelf_udp:
-    address: ":12201/udp"
+#  mysql:
+#    address: ":3306"
+#  netflow:
+#    address: ":2055/udp"
+#  syslog_feed:
+#    address: ":5442/udp"
+#  syslog:
+#    address: ":1514"
+#  gelf:
+#    address: ":12201"
+#  syslog_udp:
+#    address: ":1514/udp"
+#  gelf_udp:
+#    address: ":12201/udp"
 
 
 
