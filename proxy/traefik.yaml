@@ -1,6 +1,9 @@
 api:
   dashboard: true
 
+pilot:
+  dashboard: false
+
 log:
   level: INFO
 #  level: DEBUG
