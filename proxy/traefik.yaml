@@ -119,6 +119,7 @@ http:
         - websecure
       middlewares:
         - internal_only@file
+        - strip_extra_zm@file
         - add_zm@file
       rule: "Host(`nvr.lukemilius.com`)"
       tls: { }
@@ -168,4 +169,9 @@ http:
           - "172.16.0.0/12"
     add_zm:
       addprefix:
-        prefix: "/zm"
+        prefix:
+        - "/zm"
+    strip_extra_zm:
+      stripprefix:
+        prefixes:
+        - "/zm"
