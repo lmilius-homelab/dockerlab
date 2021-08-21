@@ -67,8 +67,8 @@ volumes:
     external: true
   dashboard_prom_data:
     external: true
-#  organizr_config:
-#    external: true
+  organizr_config:
+    external: true
   bitwarden_data:
     external: true
 #  primpol_db:
