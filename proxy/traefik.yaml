@@ -114,6 +114,14 @@ http:
       rule: "Host(`photos.lukemilius.com`)"
       tls: {}
       service: photos
+    nvr:
+      entryPoints:
+        - websecure
+      middlewares:
+        - internal_only@file
+      rule: "Host(`nvr.lukemilius.com`)"
+      tls: { }
+      service: nvr
 
   services:
     controller:
@@ -136,6 +144,10 @@ http:
       loadBalancer:
         servers:
           - url: "http://photos.milius.home"
+    nvr:
+      loadBalancer:
+        servers:
+          - url: "https://nvr.milius.home:8080/zm"
 
   middlewares:
     https_redirect:
