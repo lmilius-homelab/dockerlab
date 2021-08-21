@@ -149,7 +149,7 @@ http:
     nvr:
       loadBalancer:
         servers:
-          - url: "https://nvr.milius.home:8080/zm"
+          - url: "https://nvr.milius.home:8080"
 
   middlewares:
     https_redirect:
