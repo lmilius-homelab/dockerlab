@@ -5,17 +5,17 @@ services:
     labels:
     - "traefik.enable=false"
     volumes:
-    - portainer_portainer:/source/portainer_portainer:ro
-    - proxy_letsencrypt:/source/proxy_letsencrypt:ro
-    - drone_data:/source/drone_data:ro
+#    - portainer_portainer:/source/portainer_portainer:ro
+#    - proxy_letsencrypt:/source/proxy_letsencrypt:ro
+#    - drone_data:/source/drone_data:ro
     - dashboard_data:/source/dashboard_data:ro
     - dashboard_config:/source/dashboard_config:ro
     - dashboard_influxdb_data:/source/dashboard_influxdb_data:ro
     - dashboard_prom_data:/source/dashboard_prom_data:ro
-    - organizr_config:/source/organizr_config:ro
+#    - organizr_config:/source/organizr_config:ro
     - bitwarden_data:/source/bitwarden_data:ro
-    - primpol_db:/source/primpol_db:ro
-    - registry_data:/source/registry_data:ro
+#    - primpol_db:/source/primpol_db:ro
+#    - registry_data:/source/registry_data:ro
     - cache:/volumerize-cache
     - /mnt/cont_data/backups:/backup
     - /var/run/docker.sock:/var/run/docker.sock
@@ -27,7 +27,7 @@ services:
 #       VOLUMERIZE_CONTAINERS: "bitwarden_bitwarden_1 pihole_pihole_1 primpol_db_1 primpol_primpol_1 homeassistant_mariadb_1 organizr_organizr_1 dashboard_grafana_1 homeassistant_mdbadmin_1 runner-01 dashboard_speedtest_1 dashboard_node-exporter_1 dashboard_prometheus_1 dashboard_alertmanager_1 dashboard_telegraf_1 dashboard_influxdb_1 dashboard_cadvisor_1 portainer_portainer_1 ddns_ddns_1 registry_registry_1 drone_drone_1 proxy_traefik_1 proxy_forward-auth_1"
 
   duplicati:
-    image: duplicati/duplicati
+    image: duplicati/duplicati:latest
     command: "duplicati-server --webservice-interface=any --webservice-port=8200 --webservice-allowed-hostnames=*"
     labels:
     - "traefik.enable=true"
@@ -53,12 +53,12 @@ networks:
 volumes:
   cache:
   duplicati:
-  portainer_portainer:
-    external: true
-  proxy_letsencrypt:
-    external: true
-  drone_data:
-    external: true
+#  portainer_portainer:
+#    external: true
+#  proxy_letsencrypt:
+#    external: true
+#  drone_data:
+#    external: true
   dashboard_data:
     external: true
   dashboard_config:
@@ -67,13 +67,13 @@ volumes:
     external: true
   dashboard_prom_data:
     external: true
-  organizr_config:
-    external: true
+#  organizr_config:
+#    external: true
   bitwarden_data:
     external: true
-  primpol_db:
-    external: true
-  registry_data:
-    external: true
+#  primpol_db:
+#    external: true
+#  registry_data:
+#    external: true
   
 

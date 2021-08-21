@@ -193,43 +193,6 @@ volumes:
 
 ---
 kind: pipeline
-name: homeassistant
-type: docker
-
-trigger:
-  branch:
-  - master
-  event:
-  - push
-
-steps:
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd homeassistant
-  - docker-compose down
-#  - docker-compose pull
-#  - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  when:
-    event:
-    - push
-  environment:
-    MYSQL_ROOT_PASSWORD:
-      from_secret: mysql_root_password
-    HA_USER_PASSWORD:
-      from_secret: ha_user_password
-
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
-
-
----
-kind: pipeline
 name: bitwarden
 type: docker
 
@@ -262,152 +225,43 @@ volumes:
     path: /var/run/docker.sock
 
 
-# ---
-# kind: pipeline
-# name: virtman
-# type: docker
-
-# trigger:
-#   branch:
-#   - master
-#   event:
-#   - push
-
-# steps:
-# - name: Deploy
-#   image: docker/compose
-#   commands:
-#   - cd virtman
-#   - docker-compose down
-# #   - docker-compose pull
-# #   - docker-compose up -d
-#   volumes:
-#   - name: dockersock
-#     path: /var/run/docker.sock
-
-#   when:
-#     event:
-#     - push
-
-# volumes:
-# - name: dockersock
-#   host:
-#     path: /var/run/docker.sock
-
-
----
-kind: pipeline
-name: nextcloud
-type: docker
-
-trigger:
-  branch:
-  - master
-  event:
-  - push
-
-steps:
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd nextcloud
-  - docker-compose down
-#  - docker-compose pull
-#  - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  environment:
-    MYSQL_PASSWORD:
-      from_secret: nextcloud_user_password
-    MYSQL_ROOT_PASSWORD:
-      from_secret: nextcloud_root_password
-  when:
-    event:
-    - push
-
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
-
-
----
-kind: pipeline
-name: photos
-type: docker
-
-trigger:
-  branch:
-  - master
-  event:
-  - push
-
-steps:
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd photos
-  - docker-compose down
-#  - docker-compose pull
-#  - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  environment:
-    MYSQL_PASSWORD:
-      from_secret: photoview_user_password
-    MYSQL_ROOT_PASSWORD:
-      from_secret: photoview_root_password
-    MAPBOX_TOKEN:
-      from_secret: mapbox_token
-  when:
-    event:
-    - push
-
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
-
-
----
-kind: pipeline
-name: photos-dev
-type: docker
-
-trigger:
-  branch:
-  - master
-  event:
-  - push
-
-steps:
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd photos-dev
-  - docker-compose down
-#  - docker-compose pull
-#  - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  environment:
-    MYSQL_PASSWORD:
-      from_secret: photoview_user_password
-    MYSQL_ROOT_PASSWORD:
-      from_secret: photoview_root_password
-    MAPBOX_TOKEN:
-      from_secret: mapbox_token
-  when:
-    event:
-    - push
-
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
+#---
+#kind: pipeline
+#name: photos
+#type: docker
+#
+#trigger:
+#  branch:
+#  - master
+#  event:
+#  - push
+#
+#steps:
+#- name: Deploy
+#  image: docker/compose
+#  commands:
+#  - cd photos
+#  - docker-compose down
+##  - docker-compose pull
+##  - docker-compose up -d
+#  volumes:
+#  - name: dockersock
+#    path: /var/run/docker.sock
+#  environment:
+#    MYSQL_PASSWORD:
+#      from_secret: photoview_user_password
+#    MYSQL_ROOT_PASSWORD:
+#      from_secret: photoview_root_password
+#    MAPBOX_TOKEN:
+#      from_secret: mapbox_token
+#  when:
+#    event:
+#    - push
+#
+#volumes:
+#- name: dockersock
+#  host:
+#    path: /var/run/docker.sock
 
 
 ---
@@ -486,71 +340,6 @@ volumes:
 
 ---
 kind: pipeline
-name: speedtest
-type: docker
-
-trigger:
-  branch:
-  - master
-  event:
-  - push
-
-steps:
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd speedtest
-  - docker-compose pull
-  - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  when:
-    event:
-    - push
-
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
-
-
----
-kind: pipeline
-name: wireguard
-type: docker
-
-trigger:
-  branch:
-  - master
-  event:
-  - push
-
-steps:
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd wireguard
-  - docker-compose pull
-  - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  environment:
-    INTERNAL_DNS:
-      from_secret: internal_dns
-  when:
-    event:
-    - push
-
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
-
-
----
-kind: pipeline
 name: syncthing
 type: docker
 
@@ -567,42 +356,6 @@ steps:
   - cd syncthing
   - docker-compose pull
   - docker-compose up -d
-  volumes:
-  - name: dockersock
-    path: /var/run/docker.sock
-  when:
-    event:
-    - push
-
-volumes:
-- name: dockersock
-  host:
-    path: /var/run/docker.sock
-
-
----
-kind: pipeline
-name: recipes
-type: docker
-
-trigger:
-  branch:
-  - master
-  event:
-  - push
-
-steps:
-- name: Deploy
-  image: docker/compose
-  commands:
-  - cd recipes
-  - docker-compose pull
-  - docker-compose up -d
-  environment:
-    SECRET_KEY:
-      from_secret: recipes_secret_key
-    POSTGRES_PASSWORD:
-      from_secret: recipes_db_password
   volumes:
   - name: dockersock
     path: /var/run/docker.sock
