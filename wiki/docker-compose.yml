@@ -1,6 +1,23 @@
 version: '2.4'
 services:
 
+  tiddlywiki:
+    image: mazzolino/tiddlywiki
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.tiddlywiki.entrypoints=websecure"
+    - "traefik.http.routers.tiddlywiki.rule=Host(`wiki.lukemilius.com`)"
+    - "traefik.http.routers.tiddlywiki.middlewares=tfa_verify@file"
+    - "traefik.http.routers.tiddlywiki.tls=true"
+    - "traefik.docker.network=proxy"
+    restart: unless-stopped
+    volumes:
+    - data:/var/lib/tiddlywiki
+    expose:
+    - 8080
+    networks:
+    - proxy
+
   db:
     image: postgres:11-alpine
     environment:
@@ -20,7 +37,7 @@ services:
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.wiki.entrypoints=websecure"
-    - "traefik.http.routers.wiki.rule=Host(`wiki.lukemilius.com`)"
+    - "traefik.http.routers.wiki.rule=Host(`wiki2.lukemilius.com`)"
     - "traefik.http.routers.wiki.middlewares=tfa_verify@file"
     - "traefik.http.routers.wiki.tls=true"
     - "traefik.docker.network=proxy"
@@ -42,6 +59,7 @@ services:
 
 volumes:
   db-data:
+  data:
 
 networks:
   proxy:
