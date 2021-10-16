@@ -3,7 +3,7 @@ services:
 
   tiddlywiki:
     image: elasticdog/tiddlywiki:5
-    commands:
+    command:
     - --listen host=0.0.0.0
     labels:
     - "traefik.enable=true"
