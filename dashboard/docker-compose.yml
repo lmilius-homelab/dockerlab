@@ -23,13 +23,13 @@ services:
       GF_PANELS_DISABLE_SANITIZE_HTML: "true"
       GF_INSTALL_PLUGINS: "grafana-worldmap-panel,grafana-piechart-panel,savantly-heatmap-panel,grafana-clock-panel"
 
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    networks:
-    - proxy
-    restart: unless-stopped
-    command:
-      - tunnel --no-autoupdate --hostname dashboard.lukemilius.com --url https://dashboard.lukemilius.com
+#   cloudflared:
+#     image: cloudflare/cloudflared:latest
+#     networks:
+#     - proxy
+#     restart: unless-stopped
+#     command:
+#       - tunnel --no-autoupdate --hostname dashboard.lukemilius.com --url https://dashboard.lukemilius.com
 
 
   influxdb:
