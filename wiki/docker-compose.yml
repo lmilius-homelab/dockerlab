@@ -2,7 +2,7 @@ version: '2.4'
 services:
 
   tiddlywiki:
-    image: mazzolino/tiddlywiki
+    image: elasticdog/tiddlywiki:5
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.tiddlywiki.entrypoints=websecure"
@@ -12,7 +12,7 @@ services:
     - "traefik.docker.network=proxy"
     restart: unless-stopped
     volumes:
-    - data:/var/lib/tiddlywiki
+    - data:/tiddlywiki
     expose:
     - 8080
     networks:
