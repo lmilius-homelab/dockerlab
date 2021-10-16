@@ -3,6 +3,8 @@ services:
 
   tiddlywiki:
     image: elasticdog/tiddlywiki:5
+    commands:
+    - --listen host=0.0.0.0
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.tiddlywiki.entrypoints=websecure"
