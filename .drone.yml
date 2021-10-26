@@ -367,3 +367,28 @@ volumes:
 - name: dockersock
   host:
     path: /var/run/docker.sock
+
+---
+kind: pipeline
+name: status
+type: docker
+
+trigger:
+  branch:
+  - master
+  event:
+  - push
+
+steps:
+- name: Deploy
+  image: docker/compose
+  commands:
+  - cd status
+  - docker-compose pull
+  - docker-compose up -d
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+  when:
+    event:
+    - push
