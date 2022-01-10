@@ -103,21 +103,23 @@ services:
   #   - metrics
   #   restart: unless-stopped
 
-  # telegraf:
-  #   image: telegraf:1.21
-  #   networks:
-  #   - metrics
-  #   restart: unless-stopped
-  #   volumes:
-  #   - /var/run/docker.sock:/var/run/docker.sock:ro
-  #   - telegraf_config:/etc/telegraf:ro
-  #   - /sys:/host/sys:ro
-  #   - /proc:/host/proc:ro
-  #   - /etc:/host/etc:ro
-  #   environment:
-  #     HOST_PROC: /host/proc
-  #     HOST_SYS: /host/sys
-  #     HOST_ETC: /host/etc
+  telegraf:
+    image: telegraf:1.21
+    networks:
+    - metrics
+    restart: unless-stopped
+    depends_on:
+      - influxdb
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    - telegraf_config:/etc/telegraf:ro
+    - /sys:/host/sys:ro
+    - /proc:/host/proc:ro
+    - /etc:/host/etc:ro
+    environment:
+      HOST_PROC: /host/proc
+      HOST_SYS: /host/sys
+      HOST_ETC: /host/etc
 
 networks:
   metrics:
