@@ -7,6 +7,8 @@ services:
     restart: unless-stopped
     environment:
       TZ: America/Chicago
+      PUID: 1100
+      PGID: 1100
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.syncthing.entrypoints=websecure"
