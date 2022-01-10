@@ -57,7 +57,6 @@ services:
       DOCKER_INFLUXDB_INIT_RETENTION: 2y
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${INFLUX_ADMIN_TOKEN}
 
-
   # influxdb:
   #   image: registry.lukemilius.com/influxdb
   #   labels:
@@ -104,28 +103,21 @@ services:
   #   - metrics
   #   restart: unless-stopped
 
-  telegraf:
-    image: telegraf:1.21
-    networks:
-    - metrics
-    restart: unless-stopped
-    volumes:
-    - /var/run/docker.sock:/var/run/docker.sock:ro
-    - telegraf_config:/etc/telegraf:ro
-    - /sys:/host/sys:ro
-    - /proc:/host/proc:ro
-    - /etc:/host/etc:ro
-    environment:
-      HOST_PROC: /host/proc
-      HOST_SYS: /host/sys
-      HOST_ETC: /host/etc
-
-#   speedtest:
-#     image: registry.lukemilius.com/speedtest:1.0.7
-#     networks:
-#     - metrics
-#     restart: unless-stopped
-
+  # telegraf:
+  #   image: telegraf:1.21
+  #   networks:
+  #   - metrics
+  #   restart: unless-stopped
+  #   volumes:
+  #   - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   - telegraf_config:/etc/telegraf:ro
+  #   - /sys:/host/sys:ro
+  #   - /proc:/host/proc:ro
+  #   - /etc:/host/etc:ro
+  #   environment:
+  #     HOST_PROC: /host/proc
+  #     HOST_SYS: /host/sys
+  #     HOST_ETC: /host/etc
 
 networks:
   metrics:
