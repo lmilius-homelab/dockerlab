@@ -32,9 +32,8 @@ services:
 #     command:
 #       - tunnel --no-autoupdate --hostname dashboard.lukemilius.com --url https://dashboard.lukemilius.com
 
-
   influxdb:
-    image: registry.lukemilius.com/influxdb
+    image: influxdb:2.1.1
     labels:
     - "traefik.enable=true"
     - "traefik.docker.network=proxy"
@@ -42,48 +41,84 @@ services:
     - "traefik.tcp.routers.influxdb_tcp.rule=HostSNI(`*`)"
     - "traefik.tcp.routers.influxdb_tcp.service=influxdb_tcp"
     - "traefik.tcp.services.influxdb_tcp.loadbalancer.server.port=8086"
-    - "traefik.tcp.routers.graphite.entrypoints=graphite"
-    - "traefik.tcp.routers.graphite.rule=HostSNI(`*`)"
-    - "traefik.tcp.routers.graphite.service=graphite"
-    - "traefik.tcp.services.graphite.loadbalancer.server.port=2003"
     volumes:
-    - influxdb_data:/var/lib/influxdb
+    - influxdb2_data:/var/lib/influxdb2
+    - influxdb2_config:/etc/influxdb2
     networks:
     - proxy
     - metrics
+    restart: unless-stopped
     environment:
-      INFLUXDB_DB: influxdb
-    restart: unless-stopped
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: influx
+      DOCKER_INFLUXDB_INIT_PASSWORD: ${INFLUX_PASS}
+      DOCKER_INFLUXDB_INIT_ORG: homelab
+      DOCKER_INFLUXDB_INIT_BUCKET: metrics
+      DOCKER_INFLUXDB_INIT_RETENTION: 2y
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: ${INFLUX_ADMIN_TOKEN}
 
 
-  prometheus:
-    image: registry.lukemilius.com/prometheus:latest
-    volumes:
-    - prom_data:/prometheus
-#    depends_on:
-#    - cadvisor
-    networks:
-    - metrics
-    restart: unless-stopped
+  # influxdb:
+  #   image: registry.lukemilius.com/influxdb
+  #   labels:
+  #   - "traefik.enable=true"
+  #   - "traefik.docker.network=proxy"
+  #   - "traefik.tcp.routers.influxdb_tcp.entrypoints=influxdb"
+  #   - "traefik.tcp.routers.influxdb_tcp.rule=HostSNI(`*`)"
+  #   - "traefik.tcp.routers.influxdb_tcp.service=influxdb_tcp"
+  #   - "traefik.tcp.services.influxdb_tcp.loadbalancer.server.port=8086"
+  #   - "traefik.tcp.routers.graphite.entrypoints=graphite"
+  #   - "traefik.tcp.routers.graphite.rule=HostSNI(`*`)"
+  #   - "traefik.tcp.routers.graphite.service=graphite"
+  #   - "traefik.tcp.services.graphite.loadbalancer.server.port=2003"
+  #   volumes:
+  #   - influxdb_data:/var/lib/influxdb
+  #   networks:
+  #   - proxy
+  #   - metrics
+  #   environment:
+  #     INFLUXDB_DB: influxdb
+  #   restart: unless-stopped
 
 
-  node-exporter:
-    image: prom/node-exporter
-    volumes:
-    - /:/host:ro,rslave
-    command:
-    - "--path.rootfs=/host"
-    - "--collector.filesystem.ignored-mount-points"
-    - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
-    networks:
-    - metrics
-    restart: unless-stopped
+#   prometheus:
+#     image: registry.lukemilius.com/prometheus:latest
+#     volumes:
+#     - prom_data:/prometheus
+# #    depends_on:
+# #    - cadvisor
+#     networks:
+#     - metrics
+#     restart: unless-stopped
+
+
+  # node-exporter:
+  #   image: prom/node-exporter
+  #   volumes:
+  #   - /:/host:ro,rslave
+  #   command:
+  #   - "--path.rootfs=/host"
+  #   - "--collector.filesystem.ignored-mount-points"
+  #   - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
+  #   networks:
+  #   - metrics
+  #   restart: unless-stopped
 
   telegraf:
-    image: registry.lukemilius.com/telegraf
+    image: telegraf:1.21
     networks:
     - metrics
     restart: unless-stopped
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    - telegraf_config:/etc/telegraf:ro
+    - /sys:/host/sys:ro
+    - /proc:/host/proc:ro
+    - /etc:/host/etc:ro
+    environment:
+      HOST_PROC: /host/proc
+      HOST_SYS: /host/sys
+      HOST_ETC: /host/etc
 
 #   speedtest:
 #     image: registry.lukemilius.com/speedtest:1.0.7
@@ -102,7 +137,10 @@ volumes:
   config:
   prom_data:
 #  alert_data:
-  influxdb_data:
+  # influxdb_data:
+  influxdb2_data:
+  influxdb2_config:
+  telegraf_config:
 #   es_data:
 #   mongo_data:
 #   graylog_journal:

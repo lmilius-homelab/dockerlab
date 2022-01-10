@@ -86,10 +86,14 @@ steps:
   environment:
     GF_SECURITY_ADMIN_PASSWORD:
       from_secret: admin_password
-    GRAYLOG_PASSWORD_SECRET:
-      from_secret: graylog_password_secret
-    GRAYLOG_ROOT_PASSWORD_SHA2:
-      from_secret: graylog_root_password_sha2
+    INFLUX_PASS:
+      from_secret: influx_password
+    INFLUX_ADMIN_TOKEN:
+      from_secret: influx_admin_token
+    # GRAYLOG_PASSWORD_SECRET:
+    #   from_secret: graylog_password_secret
+    # GRAYLOG_ROOT_PASSWORD_SHA2:
+    #   from_secret: graylog_root_password_sha2
 
 volumes:
 - name: dockersock
