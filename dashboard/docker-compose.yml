@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   grafana:
-    image: registry.lukemilius.com/grafana
+    image: grafana/grafana-oss:8.3.3
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.grafana.entrypoints=websecure"
@@ -11,26 +11,16 @@ services:
     - "traefik.http.routers.grafana.tls=true"
     - "traefik.docker.network=proxy"
     volumes:
-    - data:/var/lib/grafana
+    - grafana_data:/var/lib/grafana
     networks:
     - proxy
     - metrics
-    # depends_on:
-    # - prometheus
     restart: unless-stopped
     environment:
       GF_SECURITY_ADMIN_PASSWORD: ${GF_SECURITY_ADMIN_PASSWORD}
       GF_USERS_ALLOW_SIGN_UP: "false"
-      GF_PANELS_DISABLE_SANITIZE_HTML: "true"
+#       GF_PANELS_DISABLE_SANITIZE_HTML: "true"
       GF_INSTALL_PLUGINS: "grafana-worldmap-panel,grafana-piechart-panel,savantly-heatmap-panel,grafana-clock-panel"
-
-#   cloudflared:
-#     image: cloudflare/cloudflared:latest
-#     networks:
-#     - proxy
-#     restart: unless-stopped
-#     command:
-#       - tunnel --no-autoupdate --hostname dashboard.lukemilius.com --url https://dashboard.lukemilius.com
 
   influxdb:
     image: influxdb:2.1.1
@@ -79,30 +69,6 @@ services:
   #     INFLUXDB_DB: influxdb
   #   restart: unless-stopped
 
-
-#   prometheus:
-#     image: registry.lukemilius.com/prometheus:latest
-#     volumes:
-#     - prom_data:/prometheus
-# #    depends_on:
-# #    - cadvisor
-#     networks:
-#     - metrics
-#     restart: unless-stopped
-
-
-  # node-exporter:
-  #   image: prom/node-exporter
-  #   volumes:
-  #   - /:/host:ro,rslave
-  #   command:
-  #   - "--path.rootfs=/host"
-  #   - "--collector.filesystem.ignored-mount-points"
-  #   - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
-  #   networks:
-  #   - metrics
-  #   restart: unless-stopped
-
   telegraf:
     image: telegraf:1.21
     networks:
@@ -127,7 +93,8 @@ networks:
     external: true
 
 volumes:
-  data:
+  grafana_data:
+#   data:
   config:
   prom_data:
 #  alert_data:
