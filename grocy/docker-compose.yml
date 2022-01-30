@@ -1,0 +1,28 @@
+version: '2.4'
+services:
+  grocy:
+    image: lscr.io/linuxserver/grocy:latest
+    labels:
+    - "traefik.enable=true"
+    - "traefik.http.routers.grocy.entrypoints=websecure"
+    - "traefik.http.routers.grocy.rule=Host(`grocy.lukemilius.com`)"
+    - "traefik.http.routers.grocy.middlewares=internal_only@file"
+    - "traefik.http.routers.grocy.tls=true"
+    expose:
+    - 80
+    volumes:
+    - data:/config
+    networks:
+    - proxy
+    restart: unless-stopped
+    environment:
+      - PUID=1100
+      - PGID=1100
+      - TZ=Europe/London
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  data:
