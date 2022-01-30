@@ -71,8 +71,8 @@ services:
 
   telegraf:
     image: telegraf:1.21
-    networks:
-    - metrics
+    # networks:
+    # - metrics
     restart: unless-stopped
     depends_on:
       - influxdb
