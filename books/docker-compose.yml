@@ -1,0 +1,26 @@
+version: '3'
+services:
+  kavita:
+    image: kizaing/kavita:latest
+    volumes:
+    - config:/kavita/config
+    - /mnt/media/books:/books
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.books.entrypoints=websecure"
+      - "traefik.http.routers.books.rule=Host(`books.lukemilius.com`)"
+      - "traefik.http.routers.books.middlewares=tfa_verify@file"
+      - "traefik.http.routers.books.tls=true"
+      - "traefik.docker.network=proxy"
+    environment:
+      TZ: America/Chicago
+    networks:
+    - proxy
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  config:
