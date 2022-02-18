@@ -12,6 +12,10 @@ services:
       - "traefik.http.routers.books.rule=Host(`books.lukemilius.com`)"
       - "traefik.http.routers.books.middlewares=tfa_verify@file"
       - "traefik.http.routers.books.tls=true"
+      - "traefik.http.routers.booksint.entrypoints=websecure"
+      - "traefik.http.routers.booksint.rule=Host(`booksint.lukemilius.com`)"
+      - "traefik.http.routers.booksint.middlewares=internal_only@file"
+      - "traefik.http.routers.booksint.tls=true"
       - "traefik.docker.network=proxy"
     environment:
       TZ: America/Chicago
