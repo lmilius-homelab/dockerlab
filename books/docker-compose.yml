@@ -1,5 +1,34 @@
 version: '3'
 services:
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web:0.6.16
+    environment:
+      - PUID=1100
+      - PGID=1100
+      - TZ=America/Chicago
+      - DOCKER_MODS=linuxserver/calibre-web:calibre #optional
+      - OAUTHLIB_RELAX_TOKEN_SCOPE=1 #optional
+    volumes:
+      - data:/config
+      - /mnt/media/books:/books
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.calibre.entrypoints=websecure"
+      - "traefik.http.routers.calibre.rule=Host(`calibre.lukemilius.com`)"
+      - "traefik.http.routers.calibre.middlewares=tfa_verify@file"
+      - "traefik.http.routers.calibre.tls=true"
+      - "traefik.http.routers.calibreint.entrypoints=websecure"
+      - "traefik.http.routers.calibreint.rule=Host(`calibreint.lukemilius.com`)"
+      - "traefik.http.routers.calibreint.middlewares=internal_only@file"
+      - "traefik.http.routers.calibreint.tls=true"
+      - "traefik.docker.network=proxy"
+    expose:
+      - 8083
+    restart: unless-stopped
+    networks:
+    - proxy
+
+  
   kavita:
     image: kizaing/kavita:latest
     volumes:
@@ -28,3 +57,4 @@ networks:
 
 volumes:
   config:
+  data:
