@@ -55,7 +55,7 @@ services:
       - "traefik.http.routers.calibrewebserver.tls=true"
       - "traefik.http.routers.calibrewebserver.service=calibrewebserver"
       - "traefik.http.services.calibrewebserver.loadbalancer.server.port=8081"
-      - "traefik.http.routers.calibrewebserver.entrypoints=websecure"
+      - "traefik.http.routers.opds.entrypoints=websecure"
       - "traefik.http.routers.opds.rule=Host(`opds.lukemilius.com`)"
       - "traefik.http.routers.opds.tls=true"
       - "traefik.http.routers.opds.middlewares=opds-redirectregex"
