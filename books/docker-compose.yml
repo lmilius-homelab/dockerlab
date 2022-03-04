@@ -11,6 +11,7 @@ services:
     volumes:
       - data:/config
       - /mnt/media/books:/books
+      - calibre_db:/db
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.calibre.entrypoints=websecure"
@@ -28,6 +29,19 @@ services:
     networks:
     - proxy
 
+  calibre:
+    image: lscr.io/linuxserver/calibre:5.37.0
+    environment:
+      - PUID=1100
+      - PGID=1100
+      - TZ=America/Chicago
+      - PASSWORD=${ADMIN_PASSWORD}
+    volumes:
+      - calibre_db:/config
+    ports:
+      - 8080:8080
+      - 8081:8081
+    restart: unless-stopped
   
   kavita:
     image: kizaing/kavita:latest
@@ -58,3 +72,4 @@ networks:
 volumes:
   config:
   data:
+  calibre_db:

@@ -457,6 +457,9 @@ steps:
   when:
     event:
     - push
+  environment:
+    ADMIN_PASSWORD:
+      from_secret: admin_password
 
 volumes:
 - name: dockersock
