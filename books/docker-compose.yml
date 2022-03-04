@@ -51,14 +51,15 @@ services:
       - "traefik.http.services.calibre.loadbalancer.server.port=8080"
       - "traefik.http.routers.calibrewebserver.entrypoints=websecure"
       - "traefik.http.routers.calibrewebserver.rule=Host(`books.lukemilius.com`)"
-      # - "traefik.http.routers.calibrewebserver.middlewares=tfa_verify@file"
+      - "traefik.http.routers.calibrewebserver.middlewares=tfa_verify@file"
       - "traefik.http.routers.calibrewebserver.tls=true"
       - "traefik.http.routers.calibrewebserver.service=calibrewebserver"
       - "traefik.http.services.calibrewebserver.loadbalancer.server.port=8081"
       - "traefik.http.routers.opds.entrypoints=websecure"
       - "traefik.http.routers.opds.rule=Host(`books.lukemilius.com`) && Path(`/opds`)"
       - "traefik.http.routers.opds.tls=true"
-      - "traefik.http.routers.opds.service=calibrewebserver"
+      - "traefik.http.routers.opds.service=opds"
+      - "traefik.http.services.opds.loadbalancer.server.port=8081"
       - "traefik.docker.network=proxy"
     restart: unless-stopped
     networks:
