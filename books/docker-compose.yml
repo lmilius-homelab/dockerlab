@@ -11,7 +11,6 @@ services:
     volumes:
       - data:/config
       - /mnt/media/books:/books
-      - calibre_db:/db
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.calibre-web.entrypoints=websecure"
@@ -37,7 +36,7 @@ services:
       - TZ=America/Chicago
       - PASSWORD=${ADMIN_PASSWORD}
     volumes:
-      - calibre_db:/config
+      - /mnt/media/books:/config
     expose:
     - 8080
     - 8081
@@ -89,4 +88,3 @@ networks:
 volumes:
   config:
   data:
-  calibre_db:
