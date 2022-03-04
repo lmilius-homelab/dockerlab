@@ -10,7 +10,7 @@ services:
       - OAUTHLIB_RELAX_TOKEN_SCOPE=1 #optional
     volumes:
       - data:/config
-      - /mnt/media/books:/books
+      - calibre_db:/books
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.calibre-web.entrypoints=websecure"
@@ -36,7 +36,8 @@ services:
       - TZ=America/Chicago
       - PASSWORD=${ADMIN_PASSWORD}
     volumes:
-      - /mnt/media/books:/config
+      - calibre_db:/config
+      - /mnt/media/books:/books
     expose:
     - 8080
     - 8081
@@ -88,3 +89,4 @@ networks:
 volumes:
   config:
   data:
+  calibre_db:
