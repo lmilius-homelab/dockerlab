@@ -14,14 +14,14 @@ services:
       - calibre_db:/db
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.calibre.entrypoints=websecure"
-      - "traefik.http.routers.calibre.rule=Host(`calibre.lukemilius.com`)"
-      - "traefik.http.routers.calibre.middlewares=tfa_verify@file"
-      - "traefik.http.routers.calibre.tls=true"
-      - "traefik.http.routers.calibreint.entrypoints=websecure"
-      - "traefik.http.routers.calibreint.rule=Host(`calibreint.lukemilius.com`)"
-      - "traefik.http.routers.calibreint.middlewares=internal_only@file"
-      - "traefik.http.routers.calibreint.tls=true"
+      - "traefik.http.routers.calibre-web.entrypoints=websecure"
+      - "traefik.http.routers.calibre-web.rule=Host(`calibre-web.lukemilius.com`)"
+      - "traefik.http.routers.calibre-web.middlewares=tfa_verify@file"
+      - "traefik.http.routers.calibre-web.tls=true"
+      - "traefik.http.routers.calibrewebint.entrypoints=websecure"
+      - "traefik.http.routers.calibrewebint.rule=Host(`calibre-webint.lukemilius.com`)"
+      - "traefik.http.routers.calibrewebint.middlewares=internal_only@file"
+      - "traefik.http.routers.calibrewebint.tls=true"
       - "traefik.docker.network=proxy"
     expose:
       - 8083
@@ -38,10 +38,25 @@ services:
       - PASSWORD=${ADMIN_PASSWORD}
     volumes:
       - calibre_db:/config
-    ports:
-      - 8080:8080
-      - 8081:8081
+    expose:
+    - 8080
+    - 8081
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.calibre.entrypoints=websecure"
+      - "traefik.http.routers.calibre.rule=Host(`calibre.lukemilius.com`)"
+      - "traefik.http.routers.calibre.middlewares=tfa_verify@file"
+      - "traefik.http.routers.calibre.tls=true"
+      - "traefik.http.services.calibre.loadbalancer.server.port=8080"
+      - "traefik.http.routers.calibrewebserver.entrypoints=websecure"
+      - "traefik.http.routers.calibrewebserver.rule=Host(`calibrewebserver.lukemilius.com`)"
+      - "traefik.http.routers.calibrewebserver.middlewares=internal_only@file"
+      - "traefik.http.routers.calibrewebserver.tls=true"
+      - "traefik.http.services.calibrewebserver.loadbalancer.server.port=8081"
+      - "traefik.docker.network=proxy"
     restart: unless-stopped
+    networks:
+    - proxy
   
   kavita:
     image: kizaing/kavita:latest
