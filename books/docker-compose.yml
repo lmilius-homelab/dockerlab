@@ -56,7 +56,7 @@ services:
       - "traefik.http.routers.calibrewebserver.service=calibrewebserver"
       - "traefik.http.services.calibrewebserver.loadbalancer.server.port=8081"
       - "traefik.http.routers.calibrewebserver.entrypoints=websecure"
-      - "traefik.http.routers.opds.rule=Host(`books.lukemilius.com`) && Path(`/opds`)"
+      - "traefik.http.routers.opds.rule=Host(`opds.lukemilius.com`) && Path(`/opds`)"
       - "traefik.http.routers.opds.tls=true"
       - "traefik.http.routers.opds.service=calibrewebserver"
       - "traefik.docker.network=proxy"
