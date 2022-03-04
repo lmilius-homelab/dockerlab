@@ -56,11 +56,9 @@ services:
       - "traefik.http.routers.calibrewebserver.service=calibrewebserver"
       - "traefik.http.services.calibrewebserver.loadbalancer.server.port=8081"
       - "traefik.http.routers.opds.entrypoints=websecure"
-      - "traefik.http.routers.opds.rule=Host(`opds.lukemilius.com`)"
+      - "traefik.http.routers.opds.rule=Host(`books.lukemilius.com`) && Path(`/opds`)"
       - "traefik.http.routers.opds.tls=true"
-      - "traefik.http.routers.opds.middlewares=opds-redirectregex"
-      - "traefik.http.middlewares.opds-redirectregex.redirectregex.regex=^https://opds.lukemilius.com/(.*)"
-      - "traefik.http.middlewares.opds-redirectregex.redirectregex.replacement=https://books.lukemilius.com/opds/$${1}"
+      - "traefik.http.routers.opds.service=calibrewebserver"
       - "traefik.docker.network=proxy"
     restart: unless-stopped
     networks:
