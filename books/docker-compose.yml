@@ -29,7 +29,7 @@ services:
     - proxy
 
   calibre:
-    image: lscr.io/linuxserver/calibre:5.37.0
+    image: lscr.io/linuxserver/calibre:5.38.0
     environment:
       - PUID=1100
       - PGID=1100
@@ -50,11 +50,16 @@ services:
       - "traefik.http.routers.calibre.service=calibre"
       - "traefik.http.services.calibre.loadbalancer.server.port=8080"
       - "traefik.http.routers.calibrewebserver.entrypoints=websecure"
-      - "traefik.http.routers.calibrewebserver.rule=Host(`calibrewebserver.lukemilius.com`)"
+      - "traefik.http.routers.calibrewebserver.rule=Host(`books.lukemilius.com`)"
       - "traefik.http.routers.calibrewebserver.middlewares=internal_only@file"
       - "traefik.http.routers.calibrewebserver.tls=true"
       - "traefik.http.routers.calibrewebserver.service=calibrewebserver"
       - "traefik.http.services.calibrewebserver.loadbalancer.server.port=8081"
+      - "traefik.http.routers.calibrewebserver.entrypoints=websecure"
+      - "traefik.http.routers.opds.rule=Host(`books.lukemilius.com`) && Path(`/opds`)"
+      - "traefik.http.routers.opds.tls=true"
+      - "traefik.http.routers.opds.service=opds"
+      - "traefik.http.services.opds.loadbalancer.server.port=8081"
       - "traefik.docker.network=proxy"
     restart: unless-stopped
     networks:
@@ -68,14 +73,14 @@ services:
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.books.entrypoints=websecure"
-      - "traefik.http.routers.books.rule=Host(`books.lukemilius.com`)"
-      - "traefik.http.routers.books.middlewares=tfa_verify@file"
-      - "traefik.http.routers.books.tls=true"
-      - "traefik.http.routers.booksint.entrypoints=websecure"
-      - "traefik.http.routers.booksint.rule=Host(`booksint.lukemilius.com`)"
-      - "traefik.http.routers.booksint.middlewares=internal_only@file"
-      - "traefik.http.routers.booksint.tls=true"
+      - "traefik.http.routers.kavita.entrypoints=websecure"
+      - "traefik.http.routers.kavita.rule=Host(`kavita.lukemilius.com`)"
+      - "traefik.http.routers.kavita.middlewares=tfa_verify@file"
+      - "traefik.http.routers.kavita.tls=true"
+      - "traefik.http.routers.kavitaint.entrypoints=websecure"
+      - "traefik.http.routers.kavitaint.rule=Host(`kavitaint.lukemilius.com`)"
+      - "traefik.http.routers.kavitaint.middlewares=internal_only@file"
+      - "traefik.http.routers.kavitaint.tls=true"
       - "traefik.docker.network=proxy"
     environment:
       TZ: America/Chicago
