@@ -71,8 +71,10 @@ services:
     - "traefik.http.routers.notes.tls=true"
     - "traefik.docker.network=proxy"
     restart: unless-stopped
+    environment:
+      - TRILIUM_DATA_DIR=/data
     volumes:
-    - trilium-data:/home/node/trilium-data
+    - trilium-data:/data
     expose:
     - 8080
     networks:
