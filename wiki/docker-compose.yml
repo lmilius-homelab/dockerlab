@@ -62,7 +62,7 @@ services:
     - wiki_net
 
   trilium:
-    image: zadam/trilium:0.48-latest
+    image: zadam/trilium:0.50-latest
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.notes.entrypoints=websecure"
