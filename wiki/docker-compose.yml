@@ -63,13 +63,6 @@ services:
 
   trilium:
     image: zadam/trilium:0.48-latest
-    command:
-      - chown
-      - -R
-      - 1000:1000
-      - /home/node/trilium-data;
-      - node
-      - ./src/www
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.notes.entrypoints=websecure"
