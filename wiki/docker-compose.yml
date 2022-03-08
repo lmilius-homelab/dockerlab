@@ -63,8 +63,14 @@ services:
 
   trilium:
     image: zadam/trilium:0.48-latest
-    commands:
-      - chown -R 1000:1000 $TRILIUM_DATA_DIR && node ./src/www
+    command:
+      - chown
+      - -R
+      - 1000:1000
+      - /home/node/trilium-data
+      - &&
+      - node
+      - ./src/www
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.notes.entrypoints=websecure"
@@ -73,10 +79,8 @@ services:
     - "traefik.http.routers.notes.tls=true"
     - "traefik.docker.network=proxy"
     restart: unless-stopped
-    environment:
-      - TRILIUM_DATA_DIR=/data
     volumes:
-    - trilium-data:/data
+    - trilium-data:/home/node/trilium-data
     expose:
     - 8080
     networks:
