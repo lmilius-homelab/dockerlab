@@ -1,0 +1,29 @@
+version: '3'
+services:
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:2.2.2
+    environment:
+      - PUID=1100
+      - PGID=1100
+      - TZ=America/Chicago
+    volumes:
+      - config:/config
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.heimdall.entrypoints=websecure"
+      - "traefik.http.routers.heimdall.rule=Host(`home.lukemilius.com`)"
+      - "traefik.http.routers.heimdall.middlewares=tfa_verify@file"
+      - "traefik.http.routers.heimdall.tls=true"
+      - "traefik.docker.network=proxy"
+    expose:
+      - 80
+    restart: unless-stopped
+    networks:
+    - proxy
+
+networks:
+  proxy:
+    external: true
+
+volumes:
+  config:
