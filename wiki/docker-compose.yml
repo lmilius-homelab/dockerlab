@@ -67,8 +67,7 @@ services:
       - chown
       - -R
       - 1000:1000
-      - /home/node/trilium-data
-      - &&
+      - /home/node/trilium-data;
       - node
       - ./src/www
     labels:
