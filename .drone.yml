@@ -525,6 +525,8 @@ steps:
   environment:
     DB_PASSWORD:
       from_secret: peertube_db_password
+    ADMIN_EMAIL:
+      from_secret: admin_email
 
 volumes:
 - name: dockersock
