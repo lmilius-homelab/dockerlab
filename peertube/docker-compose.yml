@@ -60,6 +60,7 @@ services:
       - "traefik.http.routers.peertube.rule=Host(`tube.lukemilius.com`)"
       - "traefik.http.routers.peertube.middlewares=tfa_verify@file"
       - "traefik.http.routers.peertube.tls=true"
+      - "traefik.http.services.peertube.loadbalancer.server.port=9000"
       - "traefik.docker.network=proxy"
     expose:
     - 9000
