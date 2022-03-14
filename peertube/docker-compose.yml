@@ -112,7 +112,7 @@ services:
 networks:
   peertube:
   proxy:
-    external:
+    external: true
 
 volumes:
   assets:
