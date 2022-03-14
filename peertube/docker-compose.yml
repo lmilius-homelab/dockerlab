@@ -1,0 +1,122 @@
+version: "3.3"
+
+services:
+
+  # You can comment this webserver section if you want to use another webserver/proxy
+  # webserver:
+  #   image: chocobozzz/peertube-webserver:latest
+  #   # If you don't want to use the official image and build one from sources:
+  #   # build:
+  #   #   context: .
+  #   #   dockerfile: Dockerfile.nginx
+  #   env_file:
+  #     - .env
+  #   ports:
+  #    - "80:80"
+  #    - "443:443"
+  #   volumes:
+  #     - type: bind
+  #       # Switch sources if you downloaded the whole repository
+  #       #source: ../../nginx/peertube
+  #       source: ./docker-volume/nginx/peertube
+  #       target: /etc/nginx/conf.d/peertube.template
+  #     - assets:/var/www/peertube/peertube-latest/client/dist:ro
+  #     - ./docker-volume/data:/var/www/peertube/storage
+  #     - certbot-www:/var/www/certbot
+  #     - ./docker-volume/certbot/conf:/etc/letsencrypt
+  #   depends_on:
+  #     - peertube
+  #   restart: "always"
+
+  # # You can comment this certbot section if you want to use another webserver/proxy
+  # certbot:
+  #   container_name: certbot
+  #   image: certbot/certbot
+  #   volumes:
+  #     - ./docker-volume/certbot/conf:/etc/letsencrypt
+  #     - certbot-www:/var/www/certbot
+  #   restart: unless-stopped
+  #   entrypoint: /bin/sh -c "trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot; sleep 12h & wait $${!}; done;"
+  #   depends_on:
+  #     - webserver
+
+  peertube:
+    image: chocobozzz/peertube:production-bullseye
+    # Use a static IP for this container because nginx does not handle proxy host change without reload
+    # This container could be restarted on crash or until the postgresql database is ready for connection
+    # networks:
+    #   default:
+    #     ipv4_address: 172.18.0.42
+    environment:
+      PEERTUBE_DB_USERNAME: postgres
+      PEERTUBE_DB_PASSWORD: ${DB_PASSWORD}
+      PEERTUBE_DB_SSL: "false"
+      PEERTUBE_DB_HOSTNAME: postgres
+      PEERTUBE_WEBSERVER_HOSTNAME: tube.lukemilius.com
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.peertube.entrypoints=websecure"
+      - "traefik.http.routers.peertube.rule=Host(`tube.lukemilius.com`)"
+      - "traefik.http.routers.peertube.middlewares=tfa_verify@file"
+      - "traefik.http.routers.peertube.tls=true"
+      - "traefik.docker.network=proxy"
+    expose:
+    - 9000
+    # ports:
+    #  - "1935:1935" # If you don't want to use the live feature, you can comment this line
+    #  - "9000:9000" # If you provide your own webserver and reverse-proxy, otherwise not suitable for production
+    volumes:
+      - assets:/app/client/dist
+      - data:/data
+      - config:/config
+    depends_on:
+      - postgres
+      - redis
+      - postfix
+    restart: "unless-stopped"
+    networks:
+    - proxy
+    - peertube
+
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: peertube
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db:/var/lib/postgresql/data
+    restart: "unless-stopped"
+    networks:
+    - peertube
+
+  redis:
+    image: redis:6-alpine
+    volumes:
+      - redis:/data
+    restart: "unless-stopped"
+    networks:
+    - peertube
+
+  # postfix:
+  #   image: mwader/postfix-relay
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - keys:/etc/opendkim/keys
+  #   restart: "unless-stopped"
+  #   networks:
+  #   - peertube
+
+networks:
+  peertube:
+
+volumes:
+  assets:
+  db:
+  config:
+  data:
+  config:
+  redis:
+  # keys:

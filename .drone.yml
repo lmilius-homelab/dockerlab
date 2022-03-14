@@ -496,3 +496,37 @@ volumes:
 - name: dockersock
   host:
     path: /var/run/docker.sock
+
+
+---
+kind: pipeline
+name: peertube
+type: docker
+
+trigger:
+  branch:
+  - master
+  event:
+  - push
+
+steps:
+- name: Deploy
+  image: docker/compose
+  commands:
+  - cd peertube
+  - docker-compose pull
+  - docker-compose up -d
+  volumes:
+  - name: dockersock
+    path: /var/run/docker.sock
+  when:
+    event:
+    - push
+  environment:
+    DB_PASSWORD:
+      from_secret: peertube_db_password
+
+volumes:
+- name: dockersock
+  host:
+    path: /var/run/docker.sock
