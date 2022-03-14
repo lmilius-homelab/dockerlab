@@ -111,6 +111,8 @@ services:
 
 networks:
   peertube:
+  proxy:
+    external:
 
 volumes:
   assets:
