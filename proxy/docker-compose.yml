@@ -84,3 +84,4 @@ networks:
 
 volumes:
   letsencrypt:
+  auth_config:
