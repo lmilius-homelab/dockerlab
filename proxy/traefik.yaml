@@ -159,7 +159,7 @@ http:
     photos:
       loadBalancer:
         servers:
-          - url: "http://photos.milius.home"
+          - url: "http://nas.milius.home:36077"
     nvr:
       loadBalancer:
         servers:
