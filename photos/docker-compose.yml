@@ -2,7 +2,7 @@ version: '2.4'
 services:
 
   db:
-    image: mariadb:10.6
+    image: mariadb:10.8
     restart: unless-stopped
     networks:
       - db_net
