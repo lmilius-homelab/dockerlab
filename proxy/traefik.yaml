@@ -130,6 +130,14 @@ http:
       rule: "Host(`tube-dl.lukemilius.com`)"
       tls: { }
       service: tubedl
+    code:
+      entryPoints:
+        - websecure
+      middlewares:
+        - internal_only@file
+      rule: "Host(`code.lukemilius.com`)"
+      tls: { }
+      service: code
 
   services:
     controller:
@@ -155,11 +163,15 @@ http:
     nvr:
       loadBalancer:
         servers:
-          - url: "https://nvr.milius.home:5000"
+          - url: "http://nvr.milius.home:5000"
     tubedl:
       loadBalancer:
         servers:
-          - url: "https://nvr.milius.home:8998"
+          - url: "http://nvr.milius.home:8998"
+    code:
+      loadBalancer:
+        servers:
+          - url: "http://mgmt.milius.home:8443"
 
   middlewares:
     https_redirect:
