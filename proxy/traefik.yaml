@@ -1,8 +1,8 @@
 api:
   dashboard: true
 
-  #pilot:
-  #dashboard: false
+pilot:
+  dashboard: false
 
 log:
   level: INFO
