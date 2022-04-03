@@ -55,28 +55,28 @@ services:
       AUTH_HOST: auth.lukemilius.com
 #      LOG_LEVEL: debug
 
-  authelia:
-    image: authelia/authelia:4.34.6
-    labels:
-    - "traefik.enable=true"
-    - "traefik.http.routers.authelia.rule=Host('login.lukemilius.com')"
-    - "traefik.http.routers.authelia.entrypoints=https"
-    - "traefik.http.routers.authelia.tls=true"
-    - "traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https://login.lukemilius.com/"
-    - "traefik.http.middlewares.authelia.forwardauth.trustForwardHeader=true"
-    - "traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User, Remote-Groups, Remote-Name, Remote-Email"
-    - "traefik.http.middlewares.authelia-basic.forwardauth.address=http://authelia:9091/api/verify?auth=basic"
-    - "traefik.http.middlewares.authelia-basic.forwardauth.trustForwardHeader=true"
-    - "traefik.http.middlewares.authelia-basic.forwardauth.authResponseHeaders=Remote-User, Remote-Groups, Remote-Name, Remote-Email"
-    networks:
-    - proxy
-    restart: unless-stopped
-    volumes: 
-    - auth_config:/config
-    expose:
-    - 9091
-    environment:
-      TZ: America/Chicago
+#  authelia:
+#    image: authelia/authelia:4.34.6
+#    labels:
+#    - "traefik.enable=true"
+#    - "traefik.http.routers.authelia.rule=Host('login.lukemilius.com')"
+#    - "traefik.http.routers.authelia.entrypoints=https"
+#    - "traefik.http.routers.authelia.tls=true"
+#    - "traefik.http.middlewares.authelia.forwardauth.address=http://authelia:9091/api/verify?rd=https://login.lukemilius.com/"
+#    - "traefik.http.middlewares.authelia.forwardauth.trustForwardHeader=true"
+#    - "traefik.http.middlewares.authelia.forwardauth.authResponseHeaders=Remote-User, Remote-Groups, Remote-Name, Remote-Email"
+#    - "traefik.http.middlewares.authelia-basic.forwardauth.address=http://authelia:9091/api/verify?auth=basic"
+#    - "traefik.http.middlewares.authelia-basic.forwardauth.trustForwardHeader=true"
+#    - "traefik.http.middlewares.authelia-basic.forwardauth.authResponseHeaders=Remote-User, Remote-Groups, Remote-Name, Remote-Email"
+#    networks:
+#    - proxy
+#    restart: unless-stopped
+#    volumes: 
+#    - auth_config:/config
+#    expose:
+#    - 9091
+#    environment:
+#      TZ: America/Chicago
 
 networks:
   proxy:
@@ -84,4 +84,4 @@ networks:
 
 volumes:
   letsencrypt:
-  auth_config:
+#  auth_config:

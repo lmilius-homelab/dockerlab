@@ -1,8 +1,8 @@
 api:
   dashboard: true
 
-pilot:
-  dashboard: false
+  #pilot:
+  #dashboard: false
 
 log:
   level: INFO
@@ -19,11 +19,11 @@ providers:
 serversTransport:
   insecureSkipVerify: true
 
-metrics:
-  influxDB:
-    address: influxdb:8086
-    protocol: http
-    database: influxdb
+  #metrics:
+  #influxDB:
+  #  address: influxdb:8086
+  #  protocol: http
+  #  database: influxdb
 
 entrypoints:
   web:
