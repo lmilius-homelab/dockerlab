@@ -119,11 +119,17 @@ http:
         - websecure
       middlewares:
         - internal_only@file
-        - strip_extra_zm@file
-        - add_zm@file
       rule: "Host(`nvr.lukemilius.com`)"
       tls: { }
       service: nvr
+    tubedl:
+      entryPoints:
+        - websecure
+      middlewares:
+        - internal_only@file
+      rule: "Host(`tube-dl.lukemilius.com`)"
+      tls: { }
+      service: tubedl
 
   services:
     controller:
@@ -149,7 +155,11 @@ http:
     nvr:
       loadBalancer:
         servers:
-          - url: "https://nvr.milius.home:8080"
+          - url: "https://nvr.milius.home:5000"
+    tubedl:
+      loadBalancer:
+        servers:
+          - url: "https://nvr.milius.home:8998"
 
   middlewares:
     https_redirect:
@@ -167,11 +177,3 @@ http:
         sourceRange:
           - "10.0.0.0/8"
           - "172.16.0.0/12"
-    add_zm:
-      addprefix:
-        prefix:
-        - "/zm"
-    strip_extra_zm:
-      stripprefix:
-        prefixes:
-        - "/zm"
