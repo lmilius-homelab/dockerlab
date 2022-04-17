@@ -69,6 +69,10 @@ services:
     - "traefik.http.routers.notes.rule=Host(`notes.lukemilius.com`)"
     - "traefik.http.routers.notes.middlewares=tfa_verify@file"
     - "traefik.http.routers.notes.tls=true"
+    - "traefik.http.routers.notes-int.entrypoints=websecure"
+    - "traefik.http.routers.notes-int.rule=Host(`notesint.lukemilius.com`)"
+    - "traefik.http.routers.notes-int.middlewares=internal_only@file"
+    - "traefik.http.routers.notes-int.tls=true"
     - "traefik.docker.network=proxy"
     restart: unless-stopped
     volumes:
