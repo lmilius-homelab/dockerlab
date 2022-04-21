@@ -1,7 +1,7 @@
 version: '3.6'
 services:
   grafana:
-    image: grafana/grafana-oss:8.4.7
+    image: grafana/grafana-oss:8.5.0
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.grafana.entrypoints=websecure"
