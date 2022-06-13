@@ -70,7 +70,7 @@ services:
   #   restart: unless-stopped
 
   telegraf:
-    image: telegraf:1.22
+    image: telegraf:1.23
     # networks:
     # - metrics
     restart: unless-stopped
