@@ -95,7 +95,7 @@ services:
     - db_net
 
   mariadb:
-    image: mariadb:10.8
+    image: mariadb:10.11
     restart: unless-stopped
     security_opt:
       - seccomp:unconfined
