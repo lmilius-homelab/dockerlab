@@ -37,7 +37,7 @@ services:
       - PASSWORD=${ADMIN_PASSWORD}
     volumes:
       - calibre_db:/config
-      - /mnt/media/books:/books
+      - /mnt/media_books:/books
     expose:
     - 8080
     - 8081
@@ -69,7 +69,7 @@ services:
     image: kizaing/kavita:latest
     volumes:
     - config:/kavita/config
-    - /mnt/media/books:/books
+    - /mnt/media_books:/books
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
