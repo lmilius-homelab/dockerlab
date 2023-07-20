@@ -1,7 +1,7 @@
 version: '3'
 services:
   heimdall:
-    image: lscr.io/linuxserver/heimdall:2.5.6
+    image: lscr.io/linuxserver/heimdall:2021.11.28
     environment:
       - PUID=1100
       - PGID=1100
