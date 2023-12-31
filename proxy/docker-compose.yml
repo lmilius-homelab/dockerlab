@@ -1,7 +1,7 @@
 version: '2.2'
 services:
   traefik:
-    image: traefik:v2.8
+    image: traefik:v3.0
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.traefik.entrypoints=websecure"
