@@ -23,7 +23,7 @@ services:
       GF_INSTALL_PLUGINS: "grafana-worldmap-panel,grafana-piechart-panel,savantly-heatmap-panel,grafana-clock-panel"
 
   influxdb:
-    image: influxdb:2.7.1
+    image: influxdb:2.7.4
     labels:
     - "traefik.enable=true"
     - "traefik.docker.network=proxy"
