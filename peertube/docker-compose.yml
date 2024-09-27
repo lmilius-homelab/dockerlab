@@ -81,7 +81,7 @@ services:
     - peertube
 
   postgres:
-    image: postgres:13-alpine
+    image: postgres:17-alpine
     environment:
       POSTGRES_DB: peertube
       POSTGRES_USER: postgres
