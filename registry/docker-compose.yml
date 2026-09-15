@@ -1,7 +1,7 @@
 version: '2.4'
 services:
   registry:
-    image: registry:2
+    image: registry:3
     labels:
     - "traefik.enable=true"
     - "traefik.http.routers.reg-internal.entrypoints=websecure"
